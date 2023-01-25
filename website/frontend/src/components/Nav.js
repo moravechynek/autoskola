@@ -5,8 +5,7 @@ export default function Nav(){
       <div>
         <a href="/">Domu </a>
         <a href="/test">Test </a>
-        <a href="/api/test?format=json">TestAPI </a>
-        <a href="/api/historie?format=json">HistorieAPI </a>
+        <a href="/historie">Historie reseni </a>
       </div>
     );
 }

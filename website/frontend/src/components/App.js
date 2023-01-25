@@ -2,6 +2,7 @@ import React from "react";
 import { render } from "react-dom";
 import Test from "./Test";
 import Nav from './Nav'
+import Historie from './Historie'
 import {
     BrowserRouter as Router,
     Switch,
@@ -20,6 +21,7 @@ export default function App(){
                         <p>This is the home page</p>
                     </Route>
                     <Route path="/test" component={Test} />
+                    <Route path="/historie" component={Historie} />
                 </Switch>
             </Router>
         </div>
