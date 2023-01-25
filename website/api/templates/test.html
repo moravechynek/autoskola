@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Všechny otázky</h1>
+    {% if otazky %}
+        <ol>
+            {% for o in otazky %}
+                <li>
+                    <h3>{{ o.otazka }}</h3>
+                    {% if o.file %}
+                        {% if o.file.url|slice:"-3:" == 'mp4'%}
+                            <video width="320" height="240" controls>
+                                <source src="{{ o.file.url }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        {% else %}
+                            <img src="{{ o.file.url }}" alt="{{ o.file.url }}">
+                        {% endif %}
+                    {% endif %}
+                    <ol style="list-style-type: upper-alpha;">
+                        {% if o.spravna_odpoved == 'a' %}
+                            <li style="color:green;background-color:lightgreen">{{ o.odpoved_a }}</li>
+                            <li style="color:red">{{ o.odpoved_b }}</li>
+                            {% if o.odpoved_c %}
+                                <li style="color:red">{{ o.odpoved_c }}</li>
+                            {% endif %}
+                        {% elif o.spravna_odpoved == 'b' %}
+                            <li style="color:red">{{ o.odpoved_a }}</li>
+                            <li style="color:green;background-color:lightgreen">{{ o.odpoved_b }}</li>
+                            {% if o.odpoved_c %}
+                                <li style="color:red">{{ o.odpoved_c }}</li>
+                            {% endif %}
+                        {% elif o.spravna_odpoved == 'c' %}
+                            <li style="color:red">{{ o.odpoved_a }}</li>
+                            <li style="color:red">{{ o.odpoved_b }}</li>
+                            {% if o.odpoved_c %}
+                                <li style="color:green;background-color:lightgreen">{{ o.odpoved_c }}</li>
+                            {% endif %}
+                        {% endif %}
+                    </ol>
+                </li>
+            {% endfor %}
+        </ol>
+    {% endif %}
+</body>
+</html>

@@ -5,12 +5,12 @@ def get_image_otazky(instance, filename):
     return os.path.join('otazky', filename)
 
 class Otazka(models.Model):
-    otazka = models.TextField(max_length=150)
+    otazka = models.TextField(max_length=200)
     file = models.FileField(upload_to=get_image_otazky,
         blank=True)
     odpoved_a = models.TextField(max_length=300)
     odpoved_b = models.TextField(max_length=300)
-    odpoved_c = models.TextField(max_length=300)
+    odpoved_c = models.TextField(max_length=300, null=True, blank=True)
     spravna_odpoved = models.CharField(max_length=1)
     TOPICS = [
         ('Pojmy', 'Zákon č. 361/2000Sb. (Pojmy, povinnosti)'),

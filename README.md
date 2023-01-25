@@ -20,3 +20,5 @@
 - [ ] Styl navigace
 - [ ] Styl výpisu posledních odpovědí
 - [ ] Doplnit otázky
+    - 25/996
+    - video: 12,14

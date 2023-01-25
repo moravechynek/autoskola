@@ -28,3 +28,7 @@ def odpovedCreate(request):
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
+
+def testOtazek(request):
+    otazky = Otazka.objects.all()
+    return render(request, 'test.html', {'otazky': otazky})
