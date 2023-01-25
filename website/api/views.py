@@ -16,5 +16,5 @@ class TestView(generics.ListAPIView):
     serializer_class = OtazkaSerializer
 
 class OdpovediView(generics.ListAPIView):
-    queryset = Odpoved.objects.all()[0:6]
+    queryset = Odpoved.objects.order_by('-timestamp')[0:3]
     serializer_class = OdpovedSerializer

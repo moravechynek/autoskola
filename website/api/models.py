@@ -46,7 +46,7 @@ class Odpoved(models.Model):
         default= 1,
     )
     odpoved = models.TextField(max_length=5)
-    timestamp = models.DateField(auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return str(self.FK_otazka).split(')')[0] + ') ' + self.odpoved + ' ' + str(self.timestamp)
