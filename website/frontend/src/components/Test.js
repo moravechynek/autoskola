@@ -21,7 +21,6 @@ const Test = () => {
               <p key={item.id}>{item.odpoved_a}</p>
               <p key={item.id}>{item.odpoved_b}</p>
               <p key={item.id}>{item.odpoved_c}</p>
-              <p>sranda</p>
             </>
           );
         })}
