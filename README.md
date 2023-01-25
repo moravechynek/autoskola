@@ -11,3 +11,12 @@
 >name: admin
 >
 >password: admin
+
+# Todo
+- [ ] Formulář testu
+    - [x] API
+    - [ ] HTML formulář
+    - [ ] React Hook
+- [ ] Styl navigace
+- [ ] Styl výpisu posledních odpovědí
+- [ ] Doplnit otázky
