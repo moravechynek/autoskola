@@ -20,5 +20,6 @@
 - [ ] Styl navigace
 - [ ] Styl výpisu posledních odpovědí
 - [ ] Doplnit otázky
-    - 25/996
-    - video: 12,14
+    - 278/996
+    - u otázky 84,199,211,212, 251 nejde doplnit správná odpověď
+    - dodelat test, jestli konci otazka ? nebo :
