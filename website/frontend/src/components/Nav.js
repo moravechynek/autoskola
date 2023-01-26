@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Box, Toolbar, Container, Button} from '@mui/material'
-import {Avatar, Grid, IconButton, Link, Menu, MenuItem, Tooltip, Typography} from "@material-ui/core";
+import {AppBar, Avatar, Grid, IconButton, Link, Menu, MenuItem, Tooltip, Typography} from "@material-ui/core";
 
 
 export default function Nav() {
@@ -13,8 +13,8 @@ export default function Nav() {
 
 
   return (
-    <Grid xs={12} style={{ backgroundColor: 'cornflowerblue' }}>
-      <Container>
+    <AppBar position="static">
+      <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             <Button
@@ -40,7 +40,7 @@ export default function Nav() {
               </Button>
           </Box>
 
-            <Box sx={{ flexGrow: 0 }}>
+            <Box className="">
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Pavel Košnar" src="/static/images/avatar/2.jpg" />
@@ -77,6 +77,6 @@ export default function Nav() {
           </Box>
         </Toolbar>
       </Container>
-    </Grid>
+    </AppBar>
   );
 }

@@ -4,9 +4,7 @@ import Historie from "./Historie";
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link,
-    Redirect,
+    Route
   } from "react-router-dom";
 
 export default class Home extends Component{
@@ -20,7 +18,7 @@ export default class Home extends Component{
                 <Router>
                     <Switch>
                         <Route exact path="/">
-                            <p>This is the home page</p>
+                            <h1 className="text-3xl font-bold underline">This is the home page</h1>
                         </Route>
                         <Route path="/test" component={Test} />
                         <Route path="/historie" component={Historie} />
