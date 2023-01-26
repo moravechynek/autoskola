@@ -7,12 +7,15 @@ import Footer from "./Footer";
 
 export default function App(){
     return (
-        <div>
+        <>
             <Nav />
             <Home />
             <Footer />
-        </div>
+        </>
     );
 }
+/*
+
+            */
 const appDiv = document.getElementById("app");
 render(<App />, appDiv);

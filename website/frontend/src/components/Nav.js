@@ -13,7 +13,7 @@ export default function Nav() {
 
 
   return (
-    <Grid style={{ backgroundColor: 'cornflowerblue' }}>
+    <Grid xs={12} style={{ backgroundColor: 'cornflowerblue' }}>
       <Container>
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
