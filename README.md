@@ -20,6 +20,7 @@
 - [ ] Styl navigace
 - [ ] Styl výpisu posledních odpovědí
 - [ ] Doplnit otázky
-    - 278/996
-    - u otázky 84,199,211,212, 251 nejde doplnit správná odpověď
+    - 499/996
+    - u otázky 84,199,212 nejde doplnit správná odpověď
+    - 306,316,345,348,358,369,411,414,418,419,478
     - dodelat test, jestli konci otazka ? nebo :

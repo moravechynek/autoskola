@@ -5,7 +5,7 @@ def get_image_otazky(instance, filename):
     return os.path.join('otazky', filename)
 
 class Otazka(models.Model):
-    otazka = models.TextField(max_length=200)
+    otazka = models.TextField(max_length=250)
     file = models.FileField(upload_to=get_image_otazky,
         blank=True)
     odpoved_a = models.TextField(max_length=300)
