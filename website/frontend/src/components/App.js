@@ -1,29 +1,16 @@
 import React from "react";
 import { render } from "react-dom";
-import Test from "./Test";
-import Nav from './Nav'
-import Historie from './Historie'
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    Redirect,
-  } from "react-router-dom";
+import Nav from "./Nav";
+import Home from "./Home";
+import Footer from "./Footer";
+
 
 export default function App(){
     return (
         <div>
             <Nav />
-            <Router>
-                <Switch>
-                    <Route exact path="/">
-                        <p>This is the home page</p>
-                    </Route>
-                    <Route path="/test" component={Test} />
-                    <Route path="/historie" component={Historie} />
-                </Switch>
-            </Router>
+            <Home />
+            <Footer />
         </div>
     );
 }

@@ -16,9 +16,9 @@ const Historie = () => {
       {data &&
         data.map((item) => {
           return (
-            <>
+            <div>
               <p key={item.id}>{item.FK_otazka} {item.odpoved} {item.timestamp}</p>
-            </>
+            </div>
           );
         })}
     </>
