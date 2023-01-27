@@ -7,15 +7,10 @@ from .serializers import OtazkaSerializer, OdpovedSerializer
 from rest_framework.decorators import api_view
 
 
-def main(request):
-    return HttpResponse('<h1>API</h1>')
-
-def test(request):
-    otazka = Otazka.objects.all()[0]
-    return HttpResponse(otazka)
-
 class TestView(generics.ListAPIView):
-    queryset = Otazka.objects.all()[0:1]
+    data = Otazka.objects.all().order_by('skore')[0:1]
+    queryset = data
+
     serializer_class = OtazkaSerializer
 
 class OdpovediView(generics.ListAPIView):

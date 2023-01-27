@@ -12,6 +12,8 @@ class Otazka(models.Model):
     odpoved_b = models.TextField(max_length=300)
     odpoved_c = models.TextField(max_length=300, null=True, blank=True)
     spravna_odpoved = models.CharField(max_length=1)
+    skore = models.SmallIntegerField(default=0)
+
     TOPICS = [
         ('Pojmy', 'Zákon č. 361/2000Sb. (Pojmy, povinnosti)'),
         ('Jizda', 'Zákon č. 361/2000Sb. (Jízda vozidly)'),
