@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import React from "react";
 
-const Historie = () => {
+export default function Historie() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
@@ -11,18 +11,22 @@ const Historie = () => {
       .then((data) => setData(data));
  }, []);
 
+  let time = new Date()
+  let formatted_time = time.getFullYear() + '-' + (time.getMonth() + 1) + '-' +
+      time.getDay() + 'T' + time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
+
+
   return (
     <>
+        <h1>{formatted_time}</h1>
       {data &&
         data.map((item) => {
           return (
             <div>
-              <p key={item.id}>{item.FK_otazka} {item.odpoved} {item.timestamp}</p>
+                <p key={item.id}>{item.FK_otazka} {item.odpoved} {item.timestamp}</p>
             </div>
           );
         })}
     </>
   );
 };
-
-export default Historie;
