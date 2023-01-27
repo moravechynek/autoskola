@@ -14,8 +14,5 @@ export default function App(){
         </>
     );
 }
-/*
-
-            */
 const appDiv = document.getElementById("app");
 render(<App />, appDiv);
