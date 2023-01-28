@@ -4,7 +4,7 @@ from .models import Otazka, Odpoved
 class OtazkaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Otazka
-        fields = ('otazka','file','odpoved_a','odpoved_b','odpoved_c','spravna_odpoved','orig_topic','skore')
+        fields = ('id','otazka','file','odpoved_a','odpoved_b','odpoved_c','spravna_odpoved','orig_topic','skore')
     
 class OdpovedSerializer(serializers.ModelSerializer):
     class Meta:

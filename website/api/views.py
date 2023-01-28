@@ -5,11 +5,12 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from .serializers import OtazkaSerializer, OdpovedSerializer
 from rest_framework.decorators import api_view
+from django.db.models import Q
 
 
 class TestView(generics.ListAPIView):
-    data = Otazka.objects.all().order_by('skore')[0:1]
-    queryset = data
+    #data = Otazka.objects.all().order_by('skore')[0:1]
+    queryset = Otazka.objects.filter(Q(id=1) | Q(id=3)| Q(id=11) | Q(id=12))
 
     serializer_class = OtazkaSerializer
 
