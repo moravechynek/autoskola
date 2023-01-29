@@ -1,31 +1,42 @@
-import React, {Component} from "react";
-import Test from "./Test";
-import Historie from "./Historie";
-import Vysledek from "./Vysledek";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route
-} from "react-router-dom";
+import React from "react";
 
-export default class Home extends Component {
-    constructor(props) {
-        super(props);
-    }
 
-    render() {
-        return (
-            <div className="container bg-gray-200 rounded-xl shadow border p-8 m-10">
-                <Router>
-                    <Switch>
-                        <Route exact path="/">
-                            <h1 className="text-3xl font-bold underline">This is the home page</h1>
-                        </Route>
-                        <Route exact path="/test" component={Test}/>
-                        <Route exact path="/test/vysledek" component={Vysledek}/>
-                        <Route path="/historie" component={Historie}/>
-                    </Switch>
-                </Router>
-            </div>)
-    }
+export default function Home() {
+    document.title = 'Domovská stránka'
+
+    return (
+        <>
+            <h1 className="text-center display-1 fw-normal p-2">Domovská stránka</h1>
+            <div className="container p-4 m-4">
+                <div className="row">
+                    <div className="col-sm-4">
+                        <div className="card border border-dark rounded">
+                            <div className="card-body">
+                                <h1 className="card-title text-center"><a href="/test"
+                                                                          className="text-decoration-none text-dark">Test</a>
+                                </h1>
+                                <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi
+                                    cupiditate excepturi fugiat iure natus quae reprehenderit suscipit ullam. Minima,
+                                    vero.</p>
+                                <a href="/test" className="text-decoration-none card-link">Zkusit test</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-sm-4">
+                        <div className="card border border-dark rounded">
+                            <div className="card-body">
+                                <h1 className="card-title text-center"><a href="/statistiky"
+                                                                          className="text-decoration-none text-dark">Statistiky</a>
+                                </h1>
+                                <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi
+                                    cupiditate excepturi fugiat iure natus quae reprehenderit suscipit ullam. Minima,
+                                    vero.</p>
+                                <a href="/statistiky" className="text-decoration-none card-link">Statistiky</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    )
 }

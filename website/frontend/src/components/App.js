@@ -3,13 +3,26 @@ import {render} from "react-dom";
 import Nav from "./Nav";
 import Home from "./Home";
 import Footer from "./Footer";
+import Test from "./Test";
+import Vysledek from "./Vysledek";
+import Historie from "./Historie";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 
 export default function App() {
     return (
         <>
             <Nav/>
-            <Home/>
+            <div className="container px-4">
+                <Router>
+                    <Switch>
+                        <Route exact path="/" component={Home}/>
+                        <Route exact path="/test" component={Test}/>
+                        <Route exact path="/test/vysledek" component={Vysledek}/>
+                        <Route path="/historie" component={Historie}/>
+                    </Switch>
+                </Router>
+            </div>
             <Footer/>
         </>
     );

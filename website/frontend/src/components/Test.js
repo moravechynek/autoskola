@@ -4,15 +4,31 @@ import MuiListItem from "@material-ui/core/ListItem";
 import {Stack} from "@mui/material";
 
 
-let selectedAnswer, answeredQuestion, formatted_time = "none";
+let selectedAnswer = "none";
 
 export default function Test() {
+    document.title = 'Test'
+
     const [data, setData] = useState(null);
+    const [allSelectedAnswers, setAllSelectedAnswers] = React.useState(null);
+    const [selectedListIndex, setSelectedListIndex] = React.useState(null);
+    const [currentquestion, setCurrentquestion] = React.useState(0);
+    let answers = []
 
     useEffect(() => {
         fetch("/api/test?format=json")
             .then((res) => res.json())
-            .then((data) => setData(data));
+            .then((data) => {
+                setData(data)
+                data.map((item) => {
+                    answers = answers.concat({
+                        'FK_otazka': item.id,
+                        'odpoved': 'none',
+                        'timestamp': getTime()
+                    });
+                })
+                setAllSelectedAnswers(answers)
+            });
     }, []);
 
     const ListItem = withStyles({
@@ -33,14 +49,16 @@ export default function Test() {
         selected: {}
     })(MuiListItem);
 
-    const [selectedListIndex, setSelectedListIndex] = React.useState(null);
-    const [currentquestion, setCurrentquestion] = React.useState(0);
-    const [allSelectedAnswers, setAllSelectedAnswers] = React.useState([]);
+    const getTime = () => {
+        let curTime = new Date();
+        return curTime.getFullYear() + '-' + (curTime.getMonth() + 1) + '-' +
+            curTime.getDate() + 'T' + curTime.getHours() + ':' + curTime.getMinutes() + ':' + curTime.getSeconds() + 'Z';
+    }
+
 
     const handleListItemClick = (event, answer, question) => {
         setSelectedListIndex(answer);
         selectedAnswer = answer;
-        answeredQuestion = question;
         submitQuestion(question);
     };
 
@@ -53,68 +71,45 @@ export default function Test() {
         })
     }
 
-    const handlePreviousQuestion = (index) => {
-        if (currentquestion >= 1) {
-            setCurrentquestion(currentquestion - 1);
-            markSelectedAnswer(index - 1);
-        }
-    }
-    const handleNextQuestion = (index) => {
-        if (currentquestion < Object.keys(data).length - 1) {
-            setCurrentquestion(currentquestion + 1);
-            markSelectedAnswer(index + 1);
+    const handleQuestionChange = (change, value, index) => {
+        if (change === 'btn') {
+            setCurrentquestion(value);
+            markSelectedAnswer(value);
+        } else if (change === 'prev' || change === 'next') {
+            setCurrentquestion(currentquestion + value);
+            markSelectedAnswer(index + value);
         }
     }
 
     const submitQuestion = (question) => {
-        let time = new Date();
-        formatted_time = time.getFullYear() + '-' + (time.getMonth() + 1) + '-' +
-            time.getDate() + 'T' + time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds() + 'Z';
-        if (!allSelectedAnswers.length) {
-            const addAnswer = allSelectedAnswers.concat({
-                'FK_otazka': answeredQuestion,
-                'odpoved': selectedAnswer,
-                'timestamp': formatted_time
-            });
-            setAllSelectedAnswers(addAnswer);
-        } else {
-            const isFound = allSelectedAnswers.some(item => {
-                return item.FK_otazka === question;
-            })
-            if (isFound) {
-                allSelectedAnswers.map((item) => {
-                    if (item.FK_otazka === question) {
-                        item.odpoved = selectedAnswer;
-                        item.timestamp = formatted_time;
-                    }
-                })
-            } else {
-                const addAnswer = allSelectedAnswers.concat({
-                    'FK_otazka': answeredQuestion,
-                    'odpoved': selectedAnswer,
-                    'timestamp': formatted_time
-                });
-                setAllSelectedAnswers(addAnswer);
+        allSelectedAnswers.map((item) => {
+            if (item.FK_otazka === question) {
+                item.odpoved = selectedAnswer;
+                item.timestamp = getTime();
             }
-        }
-    }
-
-    const formatForm = () => {
-        return allSelectedAnswers;
+        })
     }
 
     const handleSendForm = () => {
-        let output = formatForm();
-        console.log(output);
+        console.log(allSelectedAnswers);
     }
 
     return (
-        <>
+        <div className="p-4 m-4">
             {data &&
             data.map((item, index) => {
                 if (index === currentquestion) {
                     return (
-                        <div className="p-4 m-4">
+                        <>
+                            {data.map((item, index) => {
+                                return (
+                                    <button className="btn btn-default m-1"
+                                            onClick={() => handleQuestionChange('btn', index)}
+                                    >
+                                        {index + 1}
+                                    </button>
+                                )
+                            })}
                             <div
                                 className="p-5 border border-secondary rounded question d-flex align-items-center justify-content-center">
                                 <h3 key={item.id} className="p-2">{item.otazka}</h3>
@@ -169,13 +164,13 @@ export default function Test() {
                             <Stack className="float-end mt-1" spacing={1} direction="row">
                                 <Button variant="contained"
                                         disabled={currentquestion === 0}
-                                        onClick={() => handlePreviousQuestion(index)}
+                                        onClick={() => handleQuestionChange('prev', -1, index)}
                                 >
                                     Předchozí
                                 </Button>
                                 <Button variant="contained"
                                         disabled={currentquestion === Object.keys(data).length - 1}
-                                        onClick={() => handleNextQuestion(index)}
+                                        onClick={() => handleQuestionChange('next', 1, index)}
                                 >
                                     Další
                                 </Button>
@@ -186,10 +181,10 @@ export default function Test() {
                                     Potvrdit
                                 </Button>
                             </Stack>
-                        </div>
+                        </>
                     );
                 }
             })}
-        </>
+        </div>
     );
 };

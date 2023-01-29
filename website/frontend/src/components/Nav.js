@@ -24,24 +24,35 @@ export default function Nav() {
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
                         <Button
                             onClick={handleCloseNavMenu}
-                            sx={{my: 2, color: 'white', display: 'block'}}
+                            sx={{my: 2, color: 'white', display: 'block', ':hover': {color: 'lightslategray'}}}
                             href="/"
                         >
                             Home
                         </Button>
                         <Button
                             onClick={handleCloseNavMenu}
-                            sx={{my: 2, color: 'white', display: 'block'}}
+                            sx={{my: 2, color: 'white', display: 'block', ':hover': {color: 'lightslategray'}}}
                             href="/test"
                         >
                             Test
                         </Button>
                         <Button
                             onClick={handleCloseNavMenu}
-                            sx={{my: 2, color: 'white', display: 'block'}}
+                            sx={{
+                                my: 2, color: 'white', display: 'block', ':hover': {color: 'lightslategray'}
+                            }}
                             href="/historie"
                         >
                             Historie
+                        </Button>
+                        <Button
+                            onClick={handleCloseNavMenu}
+                            sx={{
+                                my: 2, color: 'white', display: 'block', ':hover': {color: 'lightslategray'}
+                            }}
+                            href="/statistiky"
+                        >
+                            statistiky
                         </Button>
                     </Box>
 
@@ -67,7 +78,7 @@ export default function Nav() {
                             onClose={handleCloseUserMenu}
                         >
                             <MenuItem onClick={handleCloseUserMenu} component={Link}
-                                      href="/profile"
+                                      href="/profil"
                                       className="link-edit"
                                       underline="none"
                                       color="textPrimary"
@@ -75,7 +86,7 @@ export default function Nav() {
                                 <Typography textAlign="center">Profil</Typography>
                             </MenuItem>
                             <MenuItem onClick={handleCloseUserMenu} component={Link}
-                                      href="/account"
+                                      href="/ucet"
                                       className="link-edit"
                                       underline="none"
                                       color="textPrimary"
@@ -83,7 +94,7 @@ export default function Nav() {
                                 <Typography textAlign="center">Účet</Typography>
                             </MenuItem>
                             <MenuItem onClick={handleCloseUserMenu} component={Link}
-                                      href="/logout"
+                                      href="/odhlaseni"
                                       className="link-edit"
                                       underline="none"
                                       color="textPrimary"
