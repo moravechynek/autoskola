@@ -17,7 +17,6 @@
     - [x] API
     - [ ] HTML formulář
     - [ ] React Hook
-- [ ] Styl testu
 - [ ] Styl výpisu posledních odpovědí
 - [ ] Doplnit otázky
     - 957/996
@@ -25,4 +24,4 @@
     - 958(959)
     - vyber z vice znacek:
     - 853,854,
-    - dodelat test, jestli konci otazka ? nebo :, test a,b,c
+    - dodelat test, jestli konci otazka ? nebo :
