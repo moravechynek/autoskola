@@ -4,8 +4,6 @@ import MuiListItem from "@material-ui/core/ListItem";
 import {Stack} from "@mui/material";
 
 
-let selectedAnswer = "none";
-
 export default function Test() {
     document.title = 'Test'
 
@@ -51,15 +49,33 @@ export default function Test() {
 
     const getTime = () => {
         let curTime = new Date();
-        return curTime.getFullYear() + '-' + (curTime.getMonth() + 1) + '-' +
-            curTime.getDate() + 'T' + curTime.getHours() + ':' + curTime.getMinutes() + ':' + curTime.getSeconds() + 'Z';
+        let month = curTime.getMonth() + 1;
+        let day = curTime.getDate();
+        let hours = curTime.getHours();
+        let minutes = curTime.getMinutes();
+        let seconds = curTime.getSeconds();
+        if (month < 10) {
+            month = '0' + month
+        }
+        if (day < 10) {
+            day = '0' + day
+        }
+        if (hours < 10) {
+            hours = '0' + hours
+        }
+        if (minutes < 10) {
+            minutes = '0' + minutes
+        }
+        if (seconds < 10) {
+            seconds = '0' + seconds
+        }
+        return curTime.getFullYear() + '-' + month + '-' + day + 'T' + hours + ':' + minutes + ':' + seconds + 'Z';
     }
 
 
     const handleListItemClick = (event, answer, question) => {
         setSelectedListIndex(answer);
-        selectedAnswer = answer;
-        submitQuestion(question);
+        submitQuestion(question, answer);
     };
 
     const markSelectedAnswer = (question_index) => {
@@ -81,10 +97,10 @@ export default function Test() {
         }
     }
 
-    const submitQuestion = (question) => {
+    const submitQuestion = (question, answer) => {
         allSelectedAnswers.map((item) => {
             if (item.FK_otazka === question) {
-                item.odpoved = selectedAnswer;
+                item.odpoved = answer;
                 item.timestamp = getTime();
             }
         })
@@ -101,15 +117,27 @@ export default function Test() {
                 if (index === currentquestion) {
                     return (
                         <>
-                            {data.map((item, index) => {
-                                return (
-                                    <button className="btn btn-default m-1"
-                                            onClick={() => handleQuestionChange('btn', index)}
-                                    >
-                                        {index + 1}
-                                    </button>
-                                )
-                            })}
+                            <div className="mb-4">
+                                {data.map((item, index) => {
+                                    if (index === currentquestion) {
+                                        return (
+                                            <button className="btn btn-primary mx-1"
+                                                    onClick={() => handleQuestionChange('btn', index)}
+                                            >
+                                                {index + 1}
+                                            </button>
+                                        )
+                                    } else {
+                                        return (
+                                            <button className="btn btn-outline-primary mx-1"
+                                                    onClick={() => handleQuestionChange('btn', index)}
+                                            >
+                                                {index + 1}
+                                            </button>
+                                        )
+                                    }
+                                })}
+                            </div>
                             <div
                                 className="p-5 border border-secondary rounded question d-flex align-items-center justify-content-center">
                                 <h3 key={item.id} className="p-2">{item.otazka}</h3>
@@ -164,12 +192,14 @@ export default function Test() {
                             <Stack className="float-end mt-1" spacing={1} direction="row">
                                 <Button variant="contained"
                                         disabled={currentquestion === 0}
+                                        style={{backgroundColor: 'lightblue'}}
                                         onClick={() => handleQuestionChange('prev', -1, index)}
                                 >
                                     Předchozí
                                 </Button>
                                 <Button variant="contained"
                                         disabled={currentquestion === Object.keys(data).length - 1}
+                                        style={{backgroundColor: 'lightblue'}}
                                         onClick={() => handleQuestionChange('next', 1, index)}
                                 >
                                     Další
