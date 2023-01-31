@@ -52,7 +52,16 @@ export default function Nav() {
                             }}
                             href="/statistiky"
                         >
-                            statistiky
+                            Statistiky
+                        </Button>
+                        <Button
+                            onClick={handleCloseNavMenu}
+                            sx={{
+                                my: 2, color: 'white', display: 'block', ':hover': {color: 'lightslategray'}
+                            }}
+                            href="/trenink"
+                        >
+                            Trénink
                         </Button>
                     </Box>
 

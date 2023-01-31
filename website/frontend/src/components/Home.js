@@ -2,7 +2,7 @@ import React from "react";
 
 
 export default function Home() {
-    document.title = 'Domovská stránka'
+    document.title = 'Domovská stránka';
 
     return (
         <>

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 
 export default function Historie() {
-    document.title = 'Historie'
+    document.title = 'Historie';
 
     const [data, setData] = useState(null);
 

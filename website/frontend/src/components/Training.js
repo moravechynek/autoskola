@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {Box, Button, List, ListItemText, withStyles} from "@material-ui/core";
-import MuiListItem from "@material-ui/core/ListItem";
+import {Box, Button, List, ListItem, ListItemText, withStyles} from "@material-ui/core";
 import {Stack} from "@mui/material";
+import MuiListItem from "@material-ui/core/ListItem";
 
-
-export default function Test() {
-    document.title = 'Test';
+export default function Training() {
+    document.title = 'Trenink';
 
     const [data, setData] = useState(null);
     const [allSelectedAnswers, setAllSelectedAnswers] = React.useState(null);
@@ -108,17 +107,27 @@ export default function Test() {
 
     const handleSendForm = () => {
         console.log(allSelectedAnswers);
+        /*fetch('/api/odpoved?format=json', {
+            method: 'POST',
+            headers: {
+                'Accept': 'api/json',
+                'Content-Type': 'api/json',
+            },
+            body: JSON.stringify({
+                firstParam: allSelectedAnswers,
+                secondParam: 'yourOtherValue',
+            })
+        })*/
     }
 
     return (
         <div className="p-4 m-4">
-            {data &&
-            data.map((item, index) => {
+            {data && data.map((item, index) => {
                 if (index === currentQuestion) {
                     return (
                         <>
                             <div className="mb-4">
-                                {data.map((item, index) => {
+                                {allSelectedAnswers && allSelectedAnswers.map((item, index) => {
                                     if (index === currentQuestion) {
                                         return (
                                             <button className="btn btn-primary mx-1"
@@ -215,9 +224,9 @@ export default function Test() {
                                 </Button>
                             </Stack>
                         </>
-                    );
+                    )
                 }
             })}
         </div>
-    );
-};
+    )
+}
