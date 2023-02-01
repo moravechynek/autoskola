@@ -35,6 +35,19 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
+                    <div className="col-sm-4">
+                        <div className="card border border-dark rounded">
+                            <div className="card-body">
+                                <h1 className="card-title text-center"><a href="/trenink"
+                                                                          className="text-decoration-none text-dark">Trénink</a>
+                                </h1>
+                                <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi
+                                    cupiditate excepturi fugiat iure natus quae reprehenderit suscipit ullam. Minima,
+                                    vero.</p>
+                                <a href="/trenink" className="text-decoration-none card-link">Pojď trénovat!</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>

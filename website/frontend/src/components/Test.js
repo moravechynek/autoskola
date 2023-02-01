@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Box, Button, List, ListItemText, withStyles} from "@material-ui/core";
 import MuiListItem from "@material-ui/core/ListItem";
 import {Stack} from "@mui/material";
+import SimpleBar from "simplebar-react";
 
 
 export default function Test() {
@@ -111,113 +112,115 @@ export default function Test() {
     }
 
     return (
-        <div className="p-4 m-4">
-            {data &&
-            data.map((item, index) => {
-                if (index === currentQuestion) {
-                    return (
-                        <>
-                            <div className="mb-4">
-                                {data.map((item, index) => {
-                                    if (index === currentQuestion) {
-                                        return (
-                                            <button className="btn btn-primary mx-1"
-                                                    onClick={() => handleQuestionChange('btn', index)}
-                                            >
-                                                {index + 1}
-                                            </button>
-                                        )
-                                    } else {
-                                        return (
-                                            <button className="btn btn-outline-primary mx-1"
-                                                    onClick={() => handleQuestionChange('btn', index)}
-                                            >
-                                                {index + 1}
-                                            </button>
-                                        )
+        <SimpleBar style={{maxHeight: parent.innerHeight - 180}}>
+            <div className="p-4 m-4">
+                {data &&
+                data.map((item, index) => {
+                    if (index === currentQuestion) {
+                        return (
+                            <>
+                                <div className="mb-4">
+                                    {data.map((item, index) => {
+                                        if (index === currentQuestion) {
+                                            return (
+                                                <button className="btn btn-primary mx-1"
+                                                        onClick={() => handleQuestionChange('btn', index)}
+                                                >
+                                                    {index + 1}
+                                                </button>
+                                            )
+                                        } else {
+                                            return (
+                                                <button className="btn btn-outline-primary mx-1"
+                                                        onClick={() => handleQuestionChange('btn', index)}
+                                                >
+                                                    {index + 1}
+                                                </button>
+                                            )
+                                        }
+                                    })}
+                                </div>
+                                <div
+                                    className="p-5 border border-secondary rounded question d-flex align-items-center justify-content-center">
+                                    <h3 key={item.id} className="p-2">{item.otazka}</h3>
+                                    {item.file ? (
+                                            <img
+                                                src="https://www.znaceni-eshop.cz/fotky55863/fotos/_vyr_116Dopravni-znacka---P4---Dej-prednost-v-jizde.jpg"
+                                                alt={item.id}
+                                                className="card-img w-25 align-self-center p-2"/>
+                                        ) :
+                                        null
                                     }
-                                })}
-                            </div>
-                            <div
-                                className="p-5 border border-secondary rounded question d-flex align-items-center justify-content-center">
-                                <h3 key={item.id} className="p-2">{item.otazka}</h3>
-                                {item.file ? (
-                                        <img
-                                            src="https://www.znaceni-eshop.cz/fotky55863/fotos/_vyr_116Dopravni-znacka---P4---Dej-prednost-v-jizde.jpg"
-                                            alt={item.id}
-                                            className="card-img w-25 align-self-center p-2"/>
-                                    ) :
-                                    null
-                                }
-                            </div>
-                            <h6 className="p-2 mt-2">Odpověď:</h6>
-                            <List className="p-0 border border-secondary rounded">
-                                <ListItem
-                                    button
-                                    selected={selectedListIndex === "a"}
-                                    onClick={(event) => handleListItemClick(event, "a", item.id)}
-                                    key="a"
-                                    className="rounded-top"
-                                >
-                                    <Box className="p-3 border border-3 border-primary rounded bg-white">
-                                        <h4>A</h4>
-                                    </Box>
-                                    <ListItemText className="ms-3" primary={item.odpoved_a}/>
-                                </ListItem>
-                                <ListItem
-                                    button
-                                    selected={selectedListIndex === "b"}
-                                    onClick={(event) => handleListItemClick(event, "b", item.id)}
-                                    key="b"
-                                >
-                                    <Box className="p-3 border border-3 border-primary rounded bg-white">
-                                        <h4>B</h4>
-                                    </Box>
-                                    <ListItemText className="ms-3" primary={item.odpoved_b}/>
-                                </ListItem>
-                                {item.odpoved_c ? (
-                                        <ListItem
-                                            button
-                                            selected={selectedListIndex === "c"}
-                                            onClick={(event) => handleListItemClick(event, "c", item.id)}
-                                            key="c"
-                                            className="rounded-bottom"
-                                        >
-                                            <Box className="p-3 border border-3 border-primary rounded bg-white">
-                                                <h4>C</h4>
-                                            </Box>
-                                            <ListItemText className="ms-3" primary={item.odpoved_c}/>
-                                        </ListItem>
-                                    ) :
-                                    null
-                                }
-                            </List>
-                            <Stack className="float-end mt-1" spacing={1} direction="row">
-                                <Button variant="contained"
-                                        disabled={currentQuestion === 0}
-                                        style={{backgroundColor: 'lightblue'}}
-                                        onClick={() => handleQuestionChange('prev', -1, index)}
-                                >
-                                    Předchozí
-                                </Button>
-                                <Button variant="contained"
-                                        disabled={currentQuestion === Object.keys(data).length - 1}
-                                        style={{backgroundColor: 'lightblue'}}
-                                        onClick={() => handleQuestionChange('next', 1, index)}
-                                >
-                                    Další
-                                </Button>
-                                <Button variant="contained"
-                                        style={{backgroundColor: 'lightgreen'}}
-                                        onClick={() => handleSendForm()}
-                                >
-                                    Potvrdit
-                                </Button>
-                            </Stack>
-                        </>
-                    );
-                }
-            })}
-        </div>
+                                </div>
+                                <h6 className="p-2 mt-2">Odpověď:</h6>
+                                <List className="p-0 border border-secondary rounded">
+                                    <ListItem
+                                        button
+                                        selected={selectedListIndex === "a"}
+                                        onClick={(event) => handleListItemClick(event, "a", item.id)}
+                                        key="a"
+                                        className="rounded-top"
+                                    >
+                                        <Box className="p-3 border border-3 border-primary rounded bg-white">
+                                            <h4>A</h4>
+                                        </Box>
+                                        <ListItemText className="ms-3" primary={item.odpoved_a}/>
+                                    </ListItem>
+                                    <ListItem
+                                        button
+                                        selected={selectedListIndex === "b"}
+                                        onClick={(event) => handleListItemClick(event, "b", item.id)}
+                                        key="b"
+                                    >
+                                        <Box className="p-3 border border-3 border-primary rounded bg-white">
+                                            <h4>B</h4>
+                                        </Box>
+                                        <ListItemText className="ms-3" primary={item.odpoved_b}/>
+                                    </ListItem>
+                                    {item.odpoved_c ? (
+                                            <ListItem
+                                                button
+                                                selected={selectedListIndex === "c"}
+                                                onClick={(event) => handleListItemClick(event, "c", item.id)}
+                                                key="c"
+                                                className="rounded-bottom"
+                                            >
+                                                <Box className="p-3 border border-3 border-primary rounded bg-white">
+                                                    <h4>C</h4>
+                                                </Box>
+                                                <ListItemText className="ms-3" primary={item.odpoved_c}/>
+                                            </ListItem>
+                                        ) :
+                                        null
+                                    }
+                                </List>
+                                <Stack className="float-end mt-1" spacing={1} direction="row">
+                                    <Button variant="contained"
+                                            disabled={currentQuestion === 0}
+                                            style={{backgroundColor: 'lightblue'}}
+                                            onClick={() => handleQuestionChange('prev', -1, index)}
+                                    >
+                                        Předchozí
+                                    </Button>
+                                    <Button variant="contained"
+                                            disabled={currentQuestion === Object.keys(data).length - 1}
+                                            style={{backgroundColor: 'lightblue'}}
+                                            onClick={() => handleQuestionChange('next', 1, index)}
+                                    >
+                                        Další
+                                    </Button>
+                                    <Button variant="contained"
+                                            style={{backgroundColor: 'lightgreen'}}
+                                            onClick={() => handleSendForm()}
+                                    >
+                                        Potvrdit
+                                    </Button>
+                                </Stack>
+                            </>
+                        );
+                    }
+                })}
+            </div>
+        </SimpleBar>
     );
 };

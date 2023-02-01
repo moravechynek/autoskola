@@ -24,41 +24,35 @@ export default function Nav() {
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
                         <Button
                             onClick={handleCloseNavMenu}
-                            sx={{my: 2, color: 'white', display: 'block', ':hover': {color: 'lightslategray'}}}
+                            sx={{my: 2, color: 'white', display: 'block', ':hover': {color: '#AAA'}}}
                             href="/"
                         >
                             Home
                         </Button>
                         <Button
                             onClick={handleCloseNavMenu}
-                            sx={{my: 2, color: 'white', display: 'block', ':hover': {color: 'lightslategray'}}}
+                            sx={{my: 2, color: 'white', display: 'block', ':hover': {color: '#AAA'}}}
                             href="/test"
                         >
                             Test
                         </Button>
                         <Button
                             onClick={handleCloseNavMenu}
-                            sx={{
-                                my: 2, color: 'white', display: 'block', ':hover': {color: 'lightslategray'}
-                            }}
+                            sx={{my: 2, color: 'white', display: 'block', ':hover': {color: '#AAA'}}}
                             href="/historie"
                         >
                             Historie
                         </Button>
                         <Button
                             onClick={handleCloseNavMenu}
-                            sx={{
-                                my: 2, color: 'white', display: 'block', ':hover': {color: 'lightslategray'}
-                            }}
+                            sx={{my: 2, color: 'white', display: 'block', ':hover': {color: '#AAA'}}}
                             href="/statistiky"
                         >
                             Statistiky
                         </Button>
                         <Button
                             onClick={handleCloseNavMenu}
-                            sx={{
-                                my: 2, color: 'white', display: 'block', ':hover': {color: 'lightslategray'}
-                            }}
+                            sx={{my: 2, color: 'white', display: 'block', ':hover': {color: '#AAA'}}}
                             href="/trenink"
                         >
                             Trénink
