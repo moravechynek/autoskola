@@ -10,3 +10,8 @@ class OdpovedSerializer(serializers.ModelSerializer):
     class Meta:
         model = Odpoved
         fields = ('FK_otazka','odpoved','timestamp')
+
+class OtazkaSkoreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Otazka
+        fields = ('orig_topic', 'skore')

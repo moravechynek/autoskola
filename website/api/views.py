@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from .models import Otazka, Odpoved
 from rest_framework import generics, status
 from rest_framework.response import Response
-from .serializers import OtazkaSerializer, OdpovedSerializer
+from .serializers import OtazkaSerializer, OdpovedSerializer, OtazkaSkoreSerializer
 from rest_framework.decorators import api_view
 from django.db.models import Q
 
@@ -28,3 +28,23 @@ def odpovedCreate(request):
 def testOtazek(request):
     otazky = Otazka.objects.all()
     return render(request, 'test.html', {'otazky': otazky})
+
+def statistiky(request):
+    TOPICS = [
+        'Pojmy','Jizda',
+        'Ostatni','Znacky',
+        'Situace','BezpecnostA',
+        'BezpecnostB','BezpecnostCD',
+        'Predpisy','Provoz',
+        'Zdravi'
+    ]
+    context = {}
+    for topic in TOPICS:
+        positive = Otazka.objects.filter(orig_topic=topic).filter(skore__gt=0).count()
+        negative = Otazka.objects.filter(orig_topic=topic).filter(skore__lt=0).count()
+        neutral = Otazka.objects.filter(orig_topic=topic).filter(skore=0).count()
+        context[topic] = [positive, neutral, negative]
+
+    print(context)
+    return render(request, 'stat.html', context)
+    
