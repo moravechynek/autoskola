@@ -19,9 +19,6 @@
     - [ ] React Hook
 - [ ] Styl výpisu posledních odpovědí
 - [ ] Doplnit otázky
-    - 957/996
-    - u těchto otázek nejde doplnit správná odpověď
-    - 958(959)
-    - vyber z vice znacek:
-    - 853,854,
+    - vyber z vice znacek: 853, 854
     - dodelat test, jestli konci otazka ? nebo :
+    - od otazky 960 (vcetne), ma kazda id + 1 kvuli vymazani jedne zastarale
