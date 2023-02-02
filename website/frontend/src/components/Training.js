@@ -15,7 +15,7 @@ export default function Training() {
     const [selectedAnswer, setSelectedAnswer] = React.useState(null);
 
     useEffect(() => {
-        fetch("/api/test?format=json")
+        fetch("/api/trenink?format=json")
             .then((res) => res.json())
             .then((data) => {
                 setData(data);

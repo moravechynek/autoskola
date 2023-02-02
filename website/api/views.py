@@ -14,6 +14,10 @@ class TestView(generics.ListAPIView):
 
     serializer_class = OtazkaSerializer
 
+class TreninkView(generics.ListAPIView):
+    queryset = Otazka.objects.all().order_by('skore')[0:1]
+    serializer_class = OtazkaSerializer
+
 class OdpovediView(generics.ListAPIView):
     queryset = Odpoved.objects.order_by('-timestamp')[0:3]
     serializer_class = OdpovedSerializer
