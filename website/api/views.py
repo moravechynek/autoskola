@@ -38,6 +38,19 @@ def statistiky(request):
         'Predpisy','Provoz',
         'Zdravi'
     ]
+    LABELS = [
+        'Zákon č. 361/2000Sb. (Pojmy, povinnosti)',
+        'Zákon č. 361/2000Sb. (Jízda vozidly)',
+        'Zákon č. 361/2000Sb. (Ostatní ustanovení)',
+        'Dopravní značky',
+        'Řešení dopravních situací',
+        'Zásady bezpečné jízdy [A]',
+        'Zásady bezpečné jízdy [B]',
+        'Zásady bezpečné jízdy [C,D]',
+        'Související předpisy',
+        'Podmínky provozu vozidel',
+        'Zdravotnická příprava'
+    ]
     context = {}
     for topic in TOPICS:
         positive = Otazka.objects.filter(orig_topic=topic).filter(skore__gt=0).count()
@@ -46,5 +59,8 @@ def statistiky(request):
         context[topic] = [positive, neutral, negative]
 
     print(context)
-    return render(request, 'stat.html', context)
+    print(LABELS)
+
+    return render(request, 'stat.html', {"data":context, "labels":LABELS})
+
     

@@ -178,7 +178,7 @@ export default function Training() {
                                     <h3 key={item.id} className="p-2">{item.otazka}</h3>
                                     {item.file ? (
                                             <img
-                                                src="https://www.znaceni-eshop.cz/fotky55863/fotos/_vyr_116Dopravni-znacka---P4---Dej-prednost-v-jizde.jpg"
+                                                src={item.file}
                                                 alt={item.id}
                                                 className="card-img w-25 align-self-center p-2"/>
                                         ) :
