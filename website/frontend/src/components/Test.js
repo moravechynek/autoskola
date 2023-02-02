@@ -144,13 +144,11 @@ export default function Test() {
                                     style={{height: window.innerHeight / 3}}>
                                     <h3 key={item.id} className="p-2">{item.otazka}</h3>
                                     {item.file ? (
-<<<<<<< HEAD
                                         <img
                                             src={item.file}
                                             alt={item.id}
                                             className="card-img w-25 align-self-center p-2"/>
                                     ) : null}
-=======
                                             <img
                                                 src={item.file}
                                                 alt={item.id}
@@ -158,7 +156,6 @@ export default function Test() {
                                         ) :
                                         null
                                     }
->>>>>>> 8d433d978bc99efb044fd4b06c586de571fdc0d6
                                 </div>
                                 <h6 className="p-2 mt-2">Odpověď:</h6>
                                 <List className="p-0 border border-secondary rounded"
