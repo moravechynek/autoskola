@@ -17,7 +17,7 @@ export default function Historie() {
 
 
     return (
-        <>
+        <div className="container px-4">
             <h1>{formatted_time}</h1>
             {data &&
             data.map((item) => {
@@ -27,6 +27,6 @@ export default function Historie() {
                     </div>
                 );
             })}
-        </>
+        </div>
     );
 };

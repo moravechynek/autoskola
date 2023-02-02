@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {Box, Button, List, ListItemText, withStyles} from "@material-ui/core";
 import MuiListItem from "@material-ui/core/ListItem";
 import {Stack} from "@mui/material";
-import SimpleBar from "simplebar-react";
 
 
 export default function Test() {
@@ -112,18 +111,18 @@ export default function Test() {
     }
 
     return (
-        <SimpleBar style={{maxHeight: parent.innerHeight - 180}}>
-            <div className="p-4 m-4">
+        <div className="container px-4">
+            <div className="px-4 m-auto" style={{height: window.innerHeight, width: window.innerWidth / 1.5}}>
                 {data &&
                 data.map((item, index) => {
                     if (index === currentQuestion) {
                         return (
                             <>
-                                <div className="mb-4">
+                                <div className="my-2">
                                     {data.map((item, index) => {
                                         if (index === currentQuestion) {
                                             return (
-                                                <button className="btn btn-primary mx-1"
+                                                <button className="btn btn-primary mx-1 btn-sm"
                                                         onClick={() => handleQuestionChange('btn', index)}
                                                 >
                                                     {index + 1}
@@ -131,7 +130,7 @@ export default function Test() {
                                             )
                                         } else {
                                             return (
-                                                <button className="btn btn-outline-primary mx-1"
+                                                <button className="btn btn-outline-primary mx-1 btn-sm"
                                                         onClick={() => handleQuestionChange('btn', index)}
                                                 >
                                                     {index + 1}
@@ -141,27 +140,34 @@ export default function Test() {
                                     })}
                                 </div>
                                 <div
-                                    className="p-5 border border-secondary rounded question d-flex align-items-center justify-content-center">
+                                    className="p-5 border border-secondary rounded d-flex align-items-center justify-content-center"
+                                    style={{height: window.innerHeight / 3}}>
                                     <h3 key={item.id} className="p-2">{item.otazka}</h3>
                                     {item.file ? (
-                                            <img
-                                                src="https://www.znaceni-eshop.cz/fotky55863/fotos/_vyr_116Dopravni-znacka---P4---Dej-prednost-v-jizde.jpg"
-                                                alt={item.id}
-                                                className="card-img w-25 align-self-center p-2"/>
-                                        ) :
-                                        null
-                                    }
+                                        <img
+                                            src={item.file}
+                                            alt={item.id}
+                                            className="card-img w-25 align-self-center p-2"/>
+                                    ) : null}
                                 </div>
                                 <h6 className="p-2 mt-2">Odpověď:</h6>
-                                <List className="p-0 border border-secondary rounded">
+                                <List className="p-0 border border-secondary rounded"
+                                      style={{height: window.innerHeight / 3 + 2}}>
                                     <ListItem
                                         button
                                         selected={selectedListIndex === "a"}
                                         onClick={(event) => handleListItemClick(event, "a", item.id)}
+                                        style={item.odpoved_c ? (
+                                                {height: window.innerHeight / 9}
+                                            ) :
+                                            {height: window.innerHeight / 6}
+                                        }
                                         key="a"
                                         className="rounded-top"
                                     >
-                                        <Box className="p-3 border border-3 border-primary rounded bg-white">
+                                        <Box
+                                            className="p-3 border border-3 border-primary rounded bg-white d-flex align-items-center justify-content-center"
+                                            style={{height: window.innerHeight / 12, width: self.innerHeight / 15}}>
                                             <h4>A</h4>
                                         </Box>
                                         <ListItemText className="ms-3" primary={item.odpoved_a}/>
@@ -170,9 +176,16 @@ export default function Test() {
                                         button
                                         selected={selectedListIndex === "b"}
                                         onClick={(event) => handleListItemClick(event, "b", item.id)}
+                                        style={item.odpoved_c ? (
+                                                {height: window.innerHeight / 9}
+                                            ) :
+                                            {height: window.innerHeight / 6}
+                                        }
                                         key="b"
                                     >
-                                        <Box className="p-3 border border-3 border-primary rounded bg-white">
+                                        <Box
+                                            className="p-3 border border-3 border-primary rounded bg-white d-flex align-items-center justify-content-center"
+                                            style={{height: window.innerHeight / 12, width: self.innerHeight / 15}}>
                                             <h4>B</h4>
                                         </Box>
                                         <ListItemText className="ms-3" primary={item.odpoved_b}/>
@@ -182,10 +195,13 @@ export default function Test() {
                                                 button
                                                 selected={selectedListIndex === "c"}
                                                 onClick={(event) => handleListItemClick(event, "c", item.id)}
+                                                style={{height: window.innerHeight / 9}}
                                                 key="c"
                                                 className="rounded-bottom"
                                             >
-                                                <Box className="p-3 border border-3 border-primary rounded bg-white">
+                                                <Box
+                                                    className="p-3 border border-3 border-primary rounded bg-white d-flex align-items-center justify-content-center"
+                                                    style={{height: window.innerHeight / 12, width: self.innerHeight / 15}}>
                                                     <h4>C</h4>
                                                 </Box>
                                                 <ListItemText className="ms-3" primary={item.odpoved_c}/>
@@ -221,6 +237,6 @@ export default function Test() {
                     }
                 })}
             </div>
-        </SimpleBar>
+        </div>
     );
 };
