@@ -8,7 +8,7 @@ class Otazka(models.Model):
     otazka = models.TextField(max_length=270)
     file = models.FileField(upload_to=get_image_otazky,
         blank=True)
-    odpoved_a = models.TextField(max_length=300)
+    odpoved_a = models.TextField(max_length=400)
     odpoved_b = models.TextField(max_length=300)
     odpoved_c = models.TextField(max_length=300, null=True, blank=True)
     spravna_odpoved = models.CharField(max_length=1)

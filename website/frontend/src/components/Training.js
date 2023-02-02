@@ -14,7 +14,7 @@ export default function Training() {
     const [selectedAnswer, setSelectedAnswer] = React.useState(null);
 
     useEffect(() => {
-        fetch("/api/test?format=json")
+        fetch("/api/trenink?format=json")
             .then((res) => res.json())
             .then((data) => {
                 setData(data);
@@ -158,6 +158,13 @@ export default function Training() {
                                             alt={item.id}
                                             className="card-img w-25 align-self-center p-2"/>
                                     ) : null}
+                                    <img
+                                        src={item.file}
+                                        alt={item.id}
+                                        className="card-img w-25 align-self-center p-2"/>
+                                    ) :
+                                    null
+                                    }
                                 </div>
                                 <h6 className="p-2 mt-2">Odpověď:</h6>
                                 <List className="p-0 border border-secondary rounded"

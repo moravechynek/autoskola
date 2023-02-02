@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  {% for l in labels %}
+  <div>
+    <h3>{{ l }}</h3>
+    <canvas style="max-width:200px;max-height:200px;" id={{ forloop.counter }}></canvas>
+  <div>
+  {% endfor %}
+      
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script>console.log({{ data.Pojmy }})</script>
+      
+      <script>
+        const LABELS = ['Vim','Neutralni','Nevim'] 
+        const ctx1 = document.getElementById('1');
+        const ctx2 = document.getElementById('2');
+        const ctx3 = document.getElementById('3');
+        const ctx4 = document.getElementById('4');
+        const ctx5 = document.getElementById('5');
+        const ctx6 = document.getElementById('6');
+        const ctx7 = document.getElementById('7');
+        const ctx8 = document.getElementById('8');
+        const ctx9 = document.getElementById('9');
+        const ctx10 = document.getElementById('10');
+        const ctx11 = document.getElementById('11');
+      
+        const data = {
+          labels: LABELS,
+          datasets: [{data: [1,1,1],backgroundColor: ['green','grey','red'],hoverOffset: 4}]};
+
+        new Chart(ctx1, {
+          type: 'pie',
+          data: {
+            labels: LABELS,
+            datasets: [{data: {{ data.Pojmy }},backgroundColor: ['green','grey','red'],hoverOffset: 4}]}
+        })
+        new Chart(ctx2, {
+          type: 'pie',
+          data: {
+            labels: LABELS,
+            datasets: [{data: {{ data.Jizda }},backgroundColor: ['green','grey','red'],hoverOffset: 4}]}
+        })
+        new Chart(ctx3, {
+          type: 'pie',
+          data: {
+            labels: LABELS,
+            datasets: [{data: {{ data.Ostatni }},backgroundColor: ['green','grey','red'],hoverOffset: 4}]}
+        })
+        new Chart(ctx4, {
+          type: 'pie',
+          data: {
+            labels: LABELS,
+            datasets: [{data: {{ data.Znacky }},backgroundColor: ['green','grey','red'],hoverOffset: 4}]}
+        })
+        new Chart(ctx5, {
+          type: 'pie',
+          data: {
+            labels: LABELS,
+            datasets: [{data: {{ data.Situace }},backgroundColor: ['green','grey','red'],hoverOffset: 4}]}
+        })
+        new Chart(ctx6, {
+          type: 'pie',
+          data: {
+            labels: LABELS,
+            datasets: [{data: {{ data.BezpecnostA }},backgroundColor: ['green','grey','red'],hoverOffset: 4}]}
+        })
+        new Chart(ctx7, {
+          type: 'pie',
+          data: {
+            labels: LABELS,
+            datasets: [{data: {{ data.BezpecnostB }},backgroundColor: ['green','grey','red'],hoverOffset: 4}]}
+        })
+        new Chart(ctx8, {
+          type: 'pie',
+          data: {
+            labels: LABELS,
+            datasets: [{data: {{ data.BezpecnostCD }},backgroundColor: ['green','grey','red'],hoverOffset: 4}]}
+        })
+        new Chart(ctx9, {
+          type: 'pie',
+          data: {
+            labels: LABELS,
+            datasets: [{data: {{ data.Predpisy }},backgroundColor: ['green','grey','red'],hoverOffset: 4}]}
+        })
+        new Chart(ctx10, {
+          type: 'pie',
+          data: {
+            labels: LABELS,
+            datasets: [{data: {{ data.Provoz }},backgroundColor: ['green','grey','red'],hoverOffset: 4}]}
+        })
+        new Chart(ctx11, {
+          type: 'pie',
+          data: {
+            labels: LABELS,
+            datasets: [{data: {{ data.Zdravi }},backgroundColor: ['green','grey','red'],hoverOffset: 4}]}
+        })
+      </script>
+</body>
+</html>
