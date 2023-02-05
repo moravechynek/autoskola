@@ -4,7 +4,6 @@ import sqlite3
 con = sqlite3.connect('../db.sqlite3')
 cur = con.cursor()
 
-print('NESMYSLNE ODPOVEDI')
 for row in cur.execute("""
 SELECT id,spravna_odpoved FROM api_otazka
 WHERE spravna_odpoved NOT IN ('a', 'b', 'c');
