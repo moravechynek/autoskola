@@ -149,13 +149,6 @@ export default function Test() {
                                             alt={item.id}
                                             className="card-img w-25 align-self-center p-2"/>
                                     ) : null}
-                                            <img
-                                                src={item.file}
-                                                alt={item.id}
-                                                className="card-img w-25 align-self-center p-2"/>
-                                        ) :
-                                        null
-                                    }
                                 </div>
                                 <h6 className="p-2 mt-2">Odpověď:</h6>
                                 <List className="p-0 border border-secondary rounded"
