@@ -18,16 +18,39 @@ export default function Test() {
             .then((res) => res.json())
             .then((data) => {
                 setData(data);
-                data.map((item) => {
-                    answers = answers.concat({
-                        'FK_otazka': item.id,
-                        'odpoved': 'none',
-                        'timestamp': getTime()
-                    });
-                })
-                setAllSelectedAnswers(answers);
+                if (!localStorage.getItem("allSelectedAnswers")) {
+                    data.map((item) => {
+                        answers = answers.concat({
+                            'FK_otazka': item.id,
+                            'odpoved': 'none',
+                            'timestamp': getTime()
+                        });
+                    })
+                    setAllSelectedAnswers(answers);
+                }
             });
     }, []);
+
+    useEffect(() => {
+        const storedQuestion = localStorage.getItem("currentQuestion");
+        if (storedQuestion) {
+            setCurrentQuestion(parseInt(storedQuestion));
+        }
+        try {
+            const storedAnswers = JSON.parse(localStorage.getItem("allSelectedAnswers"));
+            if (storedAnswers) {
+                setAllSelectedAnswers(storedAnswers);
+                markSelectedAnswer(parseInt(storedQuestion));
+            }
+        } catch {
+        }
+
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem("currentQuestion", String(currentQuestion));
+    }, [currentQuestion]);
+
 
     const ListItem = withStyles({
         root: {
@@ -72,7 +95,6 @@ export default function Test() {
         return curTime.getFullYear() + '-' + month + '-' + day + 'T' + hours + ':' + minutes + ':' + seconds + 'Z';
     }
 
-
     const handleListItemClick = (event, answer, question) => {
         setSelectedListIndex(answer);
         submitQuestion(question, answer);
@@ -80,18 +102,29 @@ export default function Test() {
 
     const markSelectedAnswer = (question_index) => {
         setSelectedListIndex(0);
-        allSelectedAnswers.map((item, index) => {
-            if (index === question_index) {
-                setSelectedListIndex(item.odpoved);
-            }
-        })
+        if (allSelectedAnswers) {
+            allSelectedAnswers.map((item, index) => {
+                if (index === question_index) {
+                    setSelectedListIndex(item.odpoved);
+                }
+            })
+        } else {
+            const storedAnswers = JSON.parse(localStorage.getItem("allSelectedAnswers"));
+            storedAnswers.map((item, index) => {
+                if (index === question_index) {
+                    setSelectedListIndex(item.odpoved);
+                }
+            })
+        }
     }
 
     const handleQuestionChange = (change, value, index) => {
         if (change === 'btn') {
+            localStorage.currentQuestion = value;
             setCurrentQuestion(value);
             markSelectedAnswer(value);
         } else if (change === 'prev' || change === 'next') {
+            localStorage.currentQuestion = currentQuestion + value;
             setCurrentQuestion(currentQuestion + value);
             markSelectedAnswer(index + value);
         }
@@ -104,34 +137,47 @@ export default function Test() {
                 item.timestamp = getTime();
             }
         })
+        localStorage.allSelectedAnswers = JSON.stringify(allSelectedAnswers);
     }
 
     const handleSendForm = () => {
         console.log(allSelectedAnswers);
+        localStorage.removeItem("allSelectedAnswers");
+        localStorage.removeItem("currentQuestion");
     }
 
     return (
         <div className="container px-4">
-            <div className="px-4 m-auto" style={{height: window.innerHeight, width: window.innerWidth / 1.5}}>
+            <div className="m-auto" style={{height: window.innerHeight, width: window.innerWidth / 1.6}}>
                 {data &&
                 data.map((item, index) => {
                     if (index === currentQuestion) {
                         return (
                             <>
-                                <div className="my-2">
+                                <div className="my-2 text-center">
                                     {data.map((item, index) => {
                                         if (index === currentQuestion) {
                                             return (
-                                                <button className="btn btn-primary mx-1 btn-sm"
+                                                <button className="btn btn-primary btn-sm"
                                                         onClick={() => handleQuestionChange('btn', index)}
+                                                        style={{
+                                                            width: window.innerWidth / 47,
+                                                            'margin-left': window.innerWidth / 560,
+                                                            'margin-right': window.innerWidth / 560
+                                                        }}
                                                 >
                                                     {index + 1}
                                                 </button>
                                             )
                                         } else {
                                             return (
-                                                <button className="btn btn-outline-primary mx-1 btn-sm"
+                                                <button className="btn btn-outline-primary btn-sm"
                                                         onClick={() => handleQuestionChange('btn', index)}
+                                                        style={{
+                                                            width: window.innerWidth / 47,
+                                                            'margin-left': window.innerWidth / 560,
+                                                            'margin-right': window.innerWidth / 560
+                                                        }}
                                                 >
                                                     {index + 1}
                                                 </button>
@@ -147,7 +193,9 @@ export default function Test() {
                                         <img
                                             src={item.file}
                                             alt={item.id}
-                                            className="card-img w-25 align-self-center p-2"/>
+                                            className="card-img align-self-center p-4 m-4 w-auto"
+                                            style={{'max-height': window.innerHeight / 3}}
+                                        />
                                     ) : null}
                                 </div>
                                 <h6 className="p-2 mt-2">Odpověď:</h6>

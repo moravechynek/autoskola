@@ -110,9 +110,9 @@ export default function Historie() {
                     <div>
                         {history.map((item) => {
                             if (currentMonth === item.month) {
-                                return <button className="btn btn-primary">{item.month}</button>
+                                return <button className="btn btn-primary m-1">{item.month}</button>
                             }
-                            return <button className="btn btn-outline-primary"
+                            return <button className="btn btn-outline-primary m-1"
                                            onClick={() => handleHistoryChange('month', item.month)}>{item.month}</button>
                         })}
                     </div>
@@ -124,9 +124,9 @@ export default function Historie() {
                                         {item.days.map((day) => {
                                             console.log(currentDay)
                                             if (currentDay === day) {
-                                                return <button className="btn btn-primary">{day}</button>
+                                                return <button className="btn btn-primary m-1">{day}</button>
                                             }
-                                            return <button className="btn btn-outline-primary"
+                                            return <button className="btn btn-outline-primary m-1"
                                                            onClick={() => handleHistoryChange('day', day)}>{day}</button>
                                         })}
                                     </>
@@ -139,7 +139,7 @@ export default function Historie() {
                         {data.map((item) => {
                             if (currentDay === getTime(item.timestamp, 'day') &&
                                 currentMonth === getTime(item.timestamp, 'month')) {
-                                return <p key={item.id}>Otázka č.{item.FK_otazka}, Odpověď: {item.odpoved},
+                                return <p key={item.id}>Otázka č. {item.FK_otazka}, Odpověď: {item.odpoved.toUpperCase()},
                                     Čas: {getTime(item.timestamp, 'time')}</p>
                             }
                         })}
