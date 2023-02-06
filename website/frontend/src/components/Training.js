@@ -36,21 +36,39 @@ export default function Training() {
 
     const ListItem = withStyles({
         root: {
-            "&$selected": {
-                backgroundColor: "#66B3FF",
-                color: "black"
-            },
-            "&$selected:hover": {
-                backgroundColor: "#66B3FF",
-                color: "black"
-            },
             "&:hover": {
-                backgroundColor: "#AACCFF",
+                backgroundColor: "#AACCFF !important",
                 color: "black"
+            },
+            "&.Mui-disabled": {
+                opacity: 1
             }
         },
-        selected: {}
+        selected: {},
     })(MuiListItem);
+
+    const pickColor = (answer) => {
+        let pickedColor;
+        let spravnaOdpoved;
+        data.map((item, index) => {
+            if (index === currentQuestion) {
+                spravnaOdpoved = item.spravna_odpoved;
+                if (item.spravna_odpoved === answer) {
+                    pickedColor = "#00FF00";
+                }
+            }
+        })
+        allSelectedAnswers.map((item, index) => {
+            if (index === currentQuestion) {
+                if (item.odpoved === 'none') {
+                    pickedColor = "white";
+                } else if (item.odpoved === answer && answer !== spravnaOdpoved) {
+                    pickedColor = "red";
+                }
+            }
+        })
+        return pickedColor
+    }
 
     const getTime = () => {
         let curTime = new Date();
@@ -81,6 +99,7 @@ export default function Training() {
     const handleListItemClick = (event, answer, question) => {
         setSelectedListIndex(answer);
         submitQuestion(question, answer);
+        handleSendForm();
     };
 
     const markSelectedAnswer = (question_index) => {
@@ -109,23 +128,31 @@ export default function Training() {
                 item.timestamp = getTime();
             }
         })
-        setSelectedAnswer({
-            "FK_otazka": question,
-            "odpoved": answer
-        })
+        selectedAnswer.odpoved = answer;
     }
 
     const loadNextQuestion = () => {
-        data.map((item, index) => {
-            if (index === Object.keys(allSelectedAnswers).length) {
-                setAllSelectedAnswers(allSelectedAnswers.concat({
-                    'FK_otazka': item.id,
-                    'odpoved': 'none',
-                    'timestamp': getTime()
-                }))
-            }
-        })
+        fetch("/api/trenink?format=json")
+            .then((res) => res.json())
+            .then((nextData) => {
+                setData(data.concat(nextData));
+                nextData.map((item, index) => {
+                    if (index === 0) {
+                        setAllSelectedAnswers(allSelectedAnswers.concat({
+                            'FK_otazka': item.id,
+                            'odpoved': 'none',
+                            'timestamp': getTime()
+                        }))
+                        setSelectedAnswer({
+                            "FK_otazka": item.id,
+                            "odpoved": "none"
+                        })
+                    }
+                })
+            });
     }
+
+    console.log(data)
 
     const handleSendForm = () => {
         console.log(allSelectedAnswers);
@@ -137,13 +164,13 @@ export default function Training() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(selectedAnswer)
-        })
+        }).then()
         loadNextQuestion();
     }
 
     return (
         <div className="container px-4">
-            <div className="p-4 m-auto" style={{height: window.innerHeight, width: window.innerWidth / 1.5}}>
+            <div className="p-4 m-auto" style={{height: window.innerHeight, width: window.innerWidth / 1.7}}>
                 {data && allSelectedAnswers && data.map((item, index) => {
                     if (index === currentQuestion) {
                         return (
@@ -153,10 +180,24 @@ export default function Training() {
                                     style={{height: window.innerHeight / 3}}>
                                     <h3 key={item.id} className="p-2">{item.otazka}</h3>
                                     {item.file ? (
-                                        <img
-                                            src={item.file}
-                                            alt={item.id}
-                                            className="card-img w-25 align-self-center p-2"/>
+                                        <>
+                                            {item.file.endsWith(".mp4") ? (
+                                                    <video className="p-4 m-4 align-self-center w-auto"
+                                                           style={{'max-height': window.innerHeight / 3}}
+                                                           autoPlay muted loop
+                                                    >
+                                                        <source src={item.file} type="video/mp4"/>
+                                                        Váš prohlížeč nepodpoduje video.
+                                                    </video>
+                                                ) :
+                                                <img
+                                                    src={item.file}
+                                                    alt={item.id}
+                                                    className="card-img align-self-center p-4 m-4 w-auto"
+                                                    style={{'max-height': window.innerHeight / 3}}
+                                                />
+                                            }
+                                        </>
                                     ) : null}
                                 </div>
                                 <h6 className="p-2 mt-2">Odpověď:</h6>
@@ -168,17 +209,17 @@ export default function Training() {
                                         onClick={(event) => handleListItemClick(event, "a", item.id)}
                                         disabled={allSelectedAnswers.length > currentQuestion + 1}
                                         style={item.odpoved_c ? (
-                                                {height: window.innerHeight / 9}
+                                                {height: window.innerHeight / 9, backgroundColor: pickColor("a")}
                                             ) :
-                                            {height: window.innerHeight / 6}
+                                            {height: window.innerHeight / 6, backgroundColor: pickColor("a")}
                                         }
-                                        key="a"
+                                        id="a"
                                         className="rounded-top"
                                     >
                                         <Box
                                             className="p-3 border border-3 border-primary rounded bg-white d-flex align-items-center justify-content-center"
                                             style={{height: window.innerHeight / 12, width: self.innerHeight / 15}}>
-                                            <h4>A</h4>
+                                            <h4 style={{color: "black"}}>A</h4>
                                         </Box>
                                         <ListItemText className="ms-3" primary={item.odpoved_a}/>
                                     </ListItem>
@@ -188,16 +229,16 @@ export default function Training() {
                                         onClick={(event) => handleListItemClick(event, "b", item.id)}
                                         disabled={allSelectedAnswers.length > currentQuestion + 1}
                                         style={item.odpoved_c ? (
-                                                {height: window.innerHeight / 9}
+                                                {height: window.innerHeight / 9, backgroundColor: pickColor("b")}
                                             ) :
-                                            {height: window.innerHeight / 6}
+                                            {height: window.innerHeight / 6, backgroundColor: pickColor("b")}
                                         }
-                                        key="b"
+                                        id="b"
                                     >
                                         <Box
                                             className="p-3 border border-3 border-primary rounded bg-white d-flex align-items-center justify-content-center"
                                             style={{height: window.innerHeight / 12, width: self.innerHeight / 15}}>
-                                            <h4>B</h4>
+                                            <h4 style={{color: "black"}}>B</h4>
                                         </Box>
                                         <ListItemText className="ms-3" primary={item.odpoved_b}/>
                                     </ListItem>
@@ -207,14 +248,14 @@ export default function Training() {
                                             selected={selectedListIndex === "c"}
                                             onClick={(event) => handleListItemClick(event, "c", item.id)}
                                             disabled={allSelectedAnswers.length > currentQuestion + 1}
-                                            style={{height: window.innerHeight / 9}}
-                                            key="c"
+                                            style={{height: window.innerHeight / 9, backgroundColor: pickColor("c")}}
+                                            id="c"
                                             className="rounded-bottom"
                                         >
                                             <Box
                                                 className="p-3 border border-3 border-primary rounded bg-white d-flex align-items-center justify-content-center"
                                                 style={{height: window.innerHeight / 12, width: self.innerHeight / 15}}>
-                                                <h4>C</h4>
+                                                <h4 style={{color: "black"}}>C</h4>
                                             </Box>
                                             <ListItemText className="ms-3" primary={item.odpoved_c}/>
                                         </ListItem>
@@ -234,13 +275,6 @@ export default function Training() {
                                             onClick={() => handleQuestionChange('next', 1, index)}
                                     >
                                         Další
-                                    </Button>
-                                    <Button variant="contained"
-                                            style={{backgroundColor: 'lightgreen'}}
-                                            onClick={() => handleSendForm()}
-                                            disabled={currentQuestion < allSelectedAnswers.length - 1}
-                                    >
-                                        Potvrdit
                                     </Button>
                                 </Stack>
                             </>

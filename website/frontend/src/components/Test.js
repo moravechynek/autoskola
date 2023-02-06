@@ -148,10 +148,12 @@ export default function Test() {
 
     return (
         <div className="container px-4">
-            <div className="m-auto" style={{height: window.innerHeight, width: window.innerWidth / 1.6}}>
+            <div className="m-auto" id="center-container"
+                 style={{height: window.innerHeight, width: window.innerWidth / 1.6}}>
                 {data &&
                 data.map((item, index) => {
                     if (index === currentQuestion) {
+                        let centerWidth = $("#center-container").width()
                         return (
                             <>
                                 <div className="my-2 text-center">
@@ -161,9 +163,9 @@ export default function Test() {
                                                 <button className="btn btn-primary btn-sm"
                                                         onClick={() => handleQuestionChange('btn', index)}
                                                         style={{
-                                                            width: window.innerWidth / 47,
-                                                            'margin-left': window.innerWidth / 560,
-                                                            'margin-right': window.innerWidth / 560
+                                                            width: centerWidth / 30,
+                                                            'margin-left': centerWidth / 300,
+                                                            'margin-right': centerWidth / 300
                                                         }}
                                                 >
                                                     {index + 1}
@@ -174,9 +176,9 @@ export default function Test() {
                                                 <button className="btn btn-outline-primary btn-sm"
                                                         onClick={() => handleQuestionChange('btn', index)}
                                                         style={{
-                                                            width: window.innerWidth / 47,
-                                                            'margin-left': window.innerWidth / 560,
-                                                            'margin-right': window.innerWidth / 560
+                                                            width: centerWidth / 30,
+                                                            'margin-left': centerWidth / 300,
+                                                            'margin-right': centerWidth / 300
                                                         }}
                                                 >
                                                     {index + 1}
@@ -190,12 +192,24 @@ export default function Test() {
                                     style={{height: window.innerHeight / 3}}>
                                     <h3 key={item.id} className="p-2">{item.otazka}</h3>
                                     {item.file ? (
-                                        <img
-                                            src={item.file}
-                                            alt={item.id}
-                                            className="card-img align-self-center p-4 m-4 w-auto"
-                                            style={{'max-height': window.innerHeight / 3}}
-                                        />
+                                        <>
+                                            {item.file.endsWith(".mp4") ? (
+                                                    <video className="p-4 m-4 align-self-center w-auto"
+                                                           style={{'max-height': window.innerHeight / 3}}
+                                                           autoPlay muted loop
+                                                    >
+                                                        <source src={item.file} type="video/mp4"/>
+                                                        Váš prohlížeč nepodpoduje video.
+                                                    </video>
+                                                ) :
+                                                <img
+                                                    src={item.file}
+                                                    alt={item.id}
+                                                    className="card-img align-self-center p-4 m-4 w-auto"
+                                                    style={{'max-height': window.innerHeight / 3}}
+                                                />
+                                            }
+                                        </>
                                     ) : null}
                                 </div>
                                 <h6 className="p-2 mt-2">Odpověď:</h6>
