@@ -28,3 +28,4 @@
     - Vsechny otazky - 996
     - Temata - 119,160,116,204,98,79,78,105,25,39,35 = 1058
     - 996 - (116 + 204 + 98 + 25 + 39 + 35) = 517
+- [ ] Pravděpodobnost úspěšnosti testu
