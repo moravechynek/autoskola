@@ -6,17 +6,18 @@ from rest_framework.response import Response
 from .serializers import OtazkaSerializer, OdpovedSerializer, OtazkaSkoreSerializer
 from rest_framework.decorators import api_view
 from django.db.models import Q
+from numpy import random
 
 
 class TestView(generics.ListAPIView):
-    pojmy = list(Otazka.objects.filter(orig_topic='Pojmy')[0:10])
-    bezpecnost = list(Otazka.objects.filter(orig_topic='BezpecnostB')[0:4])
+    pojmy = list(random.choice(list(Otazka.objects.filter(orig_topic='Pojmy')),size=10,replace=False))
+    bezpecnost = list(random.choice(list(Otazka.objects.filter(orig_topic='BezpecnostB')),size=4,replace=False))
     znacky = list(Otazka.objects.filter(orig_topic='Znacky')[0:3])
     situace = list(Otazka.objects.filter(orig_topic='Situace')[0:3])
     predpisy_o_provozu_vozidel = list(Otazka.objects.filter(orig_topic='Predpisy')[0:2])
     predpisy_provozu_na_komunikacich = list(Otazka.objects.filter(orig_topic='Provoz')[0:2])
     zdravi = list(Otazka.objects.filter(orig_topic='Zdravi')[0:1])
-    
+
     queryset = pojmy + bezpecnost + znacky + situace + predpisy_o_provozu_vozidel + predpisy_provozu_na_komunikacich + zdravi
     
     serializer_class = OtazkaSerializer
@@ -87,11 +88,11 @@ def pravdepodobnost(pravdive, vsechny, pocet):
     return binom(pravdive,pocet) / binom(vsechny,pocet)
 
 from itertools import combinations_with_replacement
-for i in range(0,8):
+"""for i in range(0,8):
     comb = combinations_with_replacement([1, 2, 4],i)
     for i in list(comb):
         if sum(i) <= 7:
-            print(i)
+            print(i)"""
 """
 (1, 2, 4)
 (1, 1, 1, 4)
