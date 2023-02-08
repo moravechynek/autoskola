@@ -8,10 +8,10 @@ export default function Training() {
     document.title = 'Trénink';
 
     const [data, setData] = useState(null);
-    const [allSelectedAnswers, setAllSelectedAnswers] = React.useState([]);
-    const [selectedListIndex, setSelectedListIndex] = React.useState(null);
-    const [currentQuestion, setCurrentQuestion] = React.useState(0);
-    const [selectedAnswer, setSelectedAnswer] = React.useState(null);
+    const [allSelectedAnswers, setAllSelectedAnswers] = useState([]);
+    const [selectedListIndex, setSelectedListIndex] = useState(null);
+    const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [selectedAnswer, setSelectedAnswer] = useState(null);
 
     useEffect(() => {
         fetch("/api/trenink?format=json")
@@ -152,8 +152,6 @@ export default function Training() {
             });
     }
 
-    console.log(data)
-
     const handleSendForm = () => {
         console.log(allSelectedAnswers);
         console.log(selectedAnswer);
@@ -168,22 +166,25 @@ export default function Training() {
         loadNextQuestion();
     }
 
+    const wh = window.innerHeight;
+    const ww = window.innerWidth;
+
     return (
         <div className="container px-4">
-            <div className="p-4 m-auto" style={{height: window.innerHeight, width: window.innerWidth / 1.7}}>
+            <div className="p-4 m-auto" style={{height: wh, width: ww / 1.7}}>
                 {data && allSelectedAnswers && data.map((item, index) => {
                     if (index === currentQuestion) {
                         return (
                             <>
                                 <div
                                     className="p-5 border border-secondary rounded d-flex align-items-center justify-content-center"
-                                    style={{height: window.innerHeight / 3}}>
+                                    style={{height: wh / 3}}>
                                     <h3 key={item.id} className="p-2">{item.otazka}</h3>
                                     {item.file ? (
                                         <>
                                             {item.file.endsWith(".mp4") ? (
                                                     <video className="p-4 m-4 align-self-center w-auto"
-                                                           style={{'max-height': window.innerHeight / 3}}
+                                                           style={{'max-height': wh / 3}}
                                                            autoPlay muted loop
                                                     >
                                                         <source src={item.file} type="video/mp4"/>
@@ -194,7 +195,7 @@ export default function Training() {
                                                     src={item.file}
                                                     alt={item.id}
                                                     className="card-img align-self-center p-4 m-4 w-auto"
-                                                    style={{'max-height': window.innerHeight / 3}}
+                                                    style={{'max-height': wh / 3}}
                                                 />
                                             }
                                         </>
@@ -202,23 +203,23 @@ export default function Training() {
                                 </div>
                                 <h6 className="p-2 mt-2">Odpověď:</h6>
                                 <List className="p-0 border border-secondary rounded"
-                                      style={{height: window.innerHeight / 3 + 2}}>
+                                      style={{height: wh / 3 + 2}}>
                                     <ListItem
                                         button
                                         selected={selectedListIndex === "a"}
                                         onClick={(event) => handleListItemClick(event, "a", item.id)}
                                         disabled={allSelectedAnswers.length > currentQuestion + 1}
                                         style={item.odpoved_c ? (
-                                                {height: window.innerHeight / 9, backgroundColor: pickColor("a")}
+                                                {height: wh / 9, backgroundColor: pickColor("a")}
                                             ) :
-                                            {height: window.innerHeight / 6, backgroundColor: pickColor("a")}
+                                            {height: wh / 6, backgroundColor: pickColor("a")}
                                         }
                                         id="a"
                                         className="rounded-top"
                                     >
                                         <Box
                                             className="p-3 border border-3 border-primary rounded bg-white d-flex align-items-center justify-content-center"
-                                            style={{height: window.innerHeight / 12, width: self.innerHeight / 15}}>
+                                            style={{height: wh / 12, width: self.innerHeight / 15}}>
                                             <h4 style={{color: "black"}}>A</h4>
                                         </Box>
                                         <ListItemText className="ms-3" primary={item.odpoved_a}/>
@@ -229,15 +230,15 @@ export default function Training() {
                                         onClick={(event) => handleListItemClick(event, "b", item.id)}
                                         disabled={allSelectedAnswers.length > currentQuestion + 1}
                                         style={item.odpoved_c ? (
-                                                {height: window.innerHeight / 9, backgroundColor: pickColor("b")}
+                                                {height: wh / 9, backgroundColor: pickColor("b")}
                                             ) :
-                                            {height: window.innerHeight / 6, backgroundColor: pickColor("b")}
+                                            {height: wh / 6, backgroundColor: pickColor("b")}
                                         }
                                         id="b"
                                     >
                                         <Box
                                             className="p-3 border border-3 border-primary rounded bg-white d-flex align-items-center justify-content-center"
-                                            style={{height: window.innerHeight / 12, width: self.innerHeight / 15}}>
+                                            style={{height: wh / 12, width: self.innerHeight / 15}}>
                                             <h4 style={{color: "black"}}>B</h4>
                                         </Box>
                                         <ListItemText className="ms-3" primary={item.odpoved_b}/>
@@ -248,13 +249,13 @@ export default function Training() {
                                             selected={selectedListIndex === "c"}
                                             onClick={(event) => handleListItemClick(event, "c", item.id)}
                                             disabled={allSelectedAnswers.length > currentQuestion + 1}
-                                            style={{height: window.innerHeight / 9, backgroundColor: pickColor("c")}}
+                                            style={{height: wh / 9, backgroundColor: pickColor("c")}}
                                             id="c"
                                             className="rounded-bottom"
                                         >
                                             <Box
                                                 className="p-3 border border-3 border-primary rounded bg-white d-flex align-items-center justify-content-center"
-                                                style={{height: window.innerHeight / 12, width: self.innerHeight / 15}}>
+                                                style={{height: wh / 12, width: self.innerHeight / 15}}>
                                                 <h4 style={{color: "black"}}>C</h4>
                                             </Box>
                                             <ListItemText className="ms-3" primary={item.odpoved_c}/>

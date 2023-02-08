@@ -12,7 +12,7 @@ export default function Home() {
                 <h1 className="text-center display-1 fw-normal p-2">Domovská stránka</h1>
                 <div className="container p-4 m-4">
                     <div className="row">
-                        <div className="col-sm-4">
+                        <div className="col-sm-4 my-2">
                             <div className="card border border-dark rounded">
                                 <div className="card-body">
                                     <h1 className="card-title text-center"><a href="/test"
@@ -28,7 +28,7 @@ export default function Home() {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-sm-4">
+                        <div className="col-sm-4 my-2">
                             <div className="card border border-dark rounded">
                                 <div className="card-body">
                                     <h1 className="card-title text-center"><a href="/statistiky"
@@ -44,7 +44,7 @@ export default function Home() {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-sm-4">
+                        <div className="col-sm-4 my-2">
                             <div className="card border border-dark rounded">
                                 <div className="card-body">
                                     <h1 className="card-title text-center"><a href="/trenink"
@@ -57,6 +57,22 @@ export default function Home() {
                                         Minima,
                                         vero.</p>
                                     <a href="/trenink" className="text-decoration-none card-link">Pojď trénovat!</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-sm-4 my-2">
+                            <div className="card border border-dark rounded">
+                                <div className="card-body">
+                                    <h1 className="card-title text-center"><a href="/historie"
+                                                                              className="text-decoration-none text-dark">Historie</a>
+                                    </h1>
+                                    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing
+                                        elit.
+                                        Animi
+                                        cupiditate excepturi fugiat iure natus quae reprehenderit suscipit ullam.
+                                        Minima,
+                                        vero.</p>
+                                    <a href="/historie" className="text-decoration-none card-link">Historie</a>
                                 </div>
                             </div>
                         </div>

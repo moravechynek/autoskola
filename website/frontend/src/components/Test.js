@@ -8,9 +8,9 @@ export default function Test() {
     document.title = 'Test';
 
     const [data, setData] = useState(null);
-    const [allSelectedAnswers, setAllSelectedAnswers] = React.useState(null);
-    const [selectedListIndex, setSelectedListIndex] = React.useState(null);
-    const [currentQuestion, setCurrentQuestion] = React.useState(0);
+    const [allSelectedAnswers, setAllSelectedAnswers] = useState(null);
+    const [selectedListIndex, setSelectedListIndex] = useState(null);
+    const [currentQuestion, setCurrentQuestion] = useState(0);
     let answers = [];
 
     useEffect(() => {
@@ -118,12 +118,13 @@ export default function Test() {
         }
     }
 
-    const handleQuestionChange = (change, value, index) => {
-        if (change === 'btn') {
+    const handleQuestionChange = (type, value, index) => {
+        console.log(type, value);
+        if (type === 'btn') {
             localStorage.currentQuestion = value;
             setCurrentQuestion(value);
             markSelectedAnswer(value);
-        } else if (change === 'prev' || change === 'next') {
+        } else if (type === 'prev' || type === 'next') {
             localStorage.currentQuestion = currentQuestion + value;
             setCurrentQuestion(currentQuestion + value);
             markSelectedAnswer(index + value);
@@ -146,10 +147,69 @@ export default function Test() {
         localStorage.removeItem("currentQuestion");
     }
 
+    const wh = window.innerHeight;
+    const ww = window.innerWidth;
+
     return (
-        <div className="container px-4">
-            <div className="m-auto" id="center-container"
-                 style={{height: window.innerHeight, width: window.innerWidth / 1.6}}>
+        <div className="row">
+            <div className="col-sm-2 p-4"
+                 style={{
+                     'margin-top': wh / 30,
+                     'margin-left': ww / 20,
+                     'box-sizing': 'content-box'
+                 }}
+            >
+                <List className="border border-secondary rounded p-0"
+                      style={{'border-collapse': 'collapse', 'border-color': '#FFF'}}
+                >
+                    <ListItem button onClick={() => handleQuestionChange('btn', 0)}
+                              className="py-1 my-0 rounded-top border border-secondary"
+                    >
+                        <p className="m-0" style={{'font-size': ww / 110}}>Znalost pravidel provozu na pozemních
+                            komunikacích (10)</p>
+                    </ListItem>
+                    <ListItem button onClick={() => handleQuestionChange('btn', 10)}
+                              className="py-1 my-0 border border-secondary"
+                    >
+                        <p className="m-0" style={{'font-size': ww / 110}}>Znalost zásad bezpečné jízdy a ovládání
+                            vozidla (4)</p>
+                    </ListItem>
+                    <ListItem button onClick={() => handleQuestionChange('btn', 14)}
+                              className="py-1 my-0 border border-secondary"
+                    >
+                        <p className="m-0" style={{'font-size': ww / 110}}>Znalost dopravních značek, světelných a
+                            akustických signálů, výstražných světel,
+                            speciálních
+                            označení vozidel a osob, dopravních zařízení a zařízení pro provozní informace včetně
+                            náležitého chování řidiče, jež odpovídá jejich významu (3)</p>
+                    </ListItem>
+                    <ListItem button onClick={() => handleQuestionChange('btn', 17)}
+                              className="py-1 my-0 border border-secondary"
+                    >
+                        <p className="m-0" style={{'font-size': ww / 110}}>Schopnost řešení dopravních situací (3)</p>
+                    </ListItem>
+                    <ListItem button onClick={() => handleQuestionChange('btn', 20)}
+                              className="py-1 my-0 border border-secondary"
+                    >
+                        <p className="m-0" style={{'font-size': ww / 110}}>Znalost předpisů o podmínkách provozu vozidel
+                            na pozemních komunikacích (2)</p>
+                    </ListItem>
+                    <ListItem button onClick={() => handleQuestionChange('btn', 22)}
+                              className="py-1 my-0 border border-secondary"
+                    >
+                        <p className="m-0" style={{'font-size': ww / 110}}>Znalost předpisů souvisejícíchtype s provozen
+                            na pozemních komunikacích (2)</p>
+                    </ListItem>
+                    <ListItem button onClick={() => handleQuestionChange('btn', 24)}
+                              className="py-1 my-0 rounded-bottom border border-secondary"
+                    >
+                        <p className="m-0" style={{'font-size': ww / 110}}>Znalost zdravotnické přípravy (1)</p>
+                    </ListItem>
+                </List>
+            </div>
+            <div className="mx-5" id="center-container"
+                 style={{height: wh, width: ww / 1.7}}
+            >
                 {data &&
                 data.map((item, index) => {
                     if (index === currentQuestion) {
@@ -189,13 +249,13 @@ export default function Test() {
                                 </div>
                                 <div
                                     className="p-5 border border-secondary rounded d-flex align-items-center justify-content-center"
-                                    style={{height: window.innerHeight / 3}}>
+                                    style={{height: wh / 3}}>
                                     <h3 key={item.id} className="p-2">{item.otazka}</h3>
                                     {item.file ? (
                                         <>
                                             {item.file.endsWith(".mp4") ? (
                                                     <video className="p-4 m-4 align-self-center w-auto"
-                                                           style={{'max-height': window.innerHeight / 3}}
+                                                           style={{'max-height': wh / 3}}
                                                            autoPlay muted loop
                                                     >
                                                         <source src={item.file} type="video/mp4"/>
@@ -206,7 +266,7 @@ export default function Test() {
                                                     src={item.file}
                                                     alt={item.id}
                                                     className="card-img align-self-center p-4 m-4 w-auto"
-                                                    style={{'max-height': window.innerHeight / 3}}
+                                                    style={{'max-height': wh / 3}}
                                                 />
                                             }
                                         </>
@@ -214,22 +274,22 @@ export default function Test() {
                                 </div>
                                 <h6 className="p-2 mt-2">Odpověď:</h6>
                                 <List className="p-0 border border-secondary rounded"
-                                      style={{height: window.innerHeight / 3 + 2}}>
+                                      style={{height: wh / 3 + 2}}>
                                     <ListItem
                                         button
                                         selected={selectedListIndex === "a"}
                                         onClick={(event) => handleListItemClick(event, "a", item.id)}
                                         style={item.odpoved_c ? (
-                                                {height: window.innerHeight / 9}
+                                                {height: wh / 9}
                                             ) :
-                                            {height: window.innerHeight / 6}
+                                            {height: wh / 6}
                                         }
                                         key="a"
                                         className="rounded-top"
                                     >
                                         <Box
                                             className="p-3 border border-3 border-primary rounded bg-white d-flex align-items-center justify-content-center"
-                                            style={{height: window.innerHeight / 12, width: self.innerHeight / 15}}>
+                                            style={{height: wh / 12, width: self.innerHeight / 15}}>
                                             <h4>A</h4>
                                         </Box>
                                         <ListItemText className="ms-3" primary={item.odpoved_a}/>
@@ -239,15 +299,15 @@ export default function Test() {
                                         selected={selectedListIndex === "b"}
                                         onClick={(event) => handleListItemClick(event, "b", item.id)}
                                         style={item.odpoved_c ? (
-                                                {height: window.innerHeight / 9}
+                                                {height: wh / 9}
                                             ) :
-                                            {height: window.innerHeight / 6}
+                                            {height: wh / 6}
                                         }
                                         key="b"
                                     >
                                         <Box
                                             className="p-3 border border-3 border-primary rounded bg-white d-flex align-items-center justify-content-center"
-                                            style={{height: window.innerHeight / 12, width: self.innerHeight / 15}}>
+                                            style={{height: wh / 12, width: self.innerHeight / 15}}>
                                             <h4>B</h4>
                                         </Box>
                                         <ListItemText className="ms-3" primary={item.odpoved_b}/>
@@ -257,13 +317,16 @@ export default function Test() {
                                                 button
                                                 selected={selectedListIndex === "c"}
                                                 onClick={(event) => handleListItemClick(event, "c", item.id)}
-                                                style={{height: window.innerHeight / 9}}
+                                                style={{height: wh / 9}}
                                                 key="c"
                                                 className="rounded-bottom"
                                             >
                                                 <Box
                                                     className="p-3 border border-3 border-primary rounded bg-white d-flex align-items-center justify-content-center"
-                                                    style={{height: window.innerHeight / 12, width: self.innerHeight / 15}}>
+                                                    style={{
+                                                        height: wh / 12,
+                                                        width: self.innerHeight / 15
+                                                    }}>
                                                     <h4>C</h4>
                                                 </Box>
                                                 <ListItemText className="ms-3" primary={item.odpoved_c}/>

@@ -27,6 +27,11 @@ h1, h2, h3, h4, h5, h6 {
     color: black;
 }
 
+.simplebar-placeholder {
+    width: 0 !important;
+    height: 100px !important;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

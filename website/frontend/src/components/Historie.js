@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
 import SimpleBar from "simplebar-react";
-import {string} from "prop-types";
 
 export default function Historie() {
     document.title = 'Historie';
 
     const [data, setData] = useState(null);
     const [history, setHistory] = useState([]);
-    let tempHistory = []
-    let monthIndex = 0
+    const [lastMonthDay] = useState({});
+    let tempHistory = [];
+    let monthIndex = 0;
 
     useEffect(() => {
         fetch("/api/historie?format=json")
@@ -84,23 +84,27 @@ export default function Historie() {
 
     const handleHistoryChange = (format, value) => {
         if (format === 'day') {
-            setCurrentDay(value)
+            setCurrentDay(value);
+            lastMonthDay[currentMonth] = value;
         } else if (format === 'month') {
             setCurrentMonth(value);
-            history.map((item) => {
-                if (item.month === currentMonth) {
-                    let day = Math.max.apply(Math, item.days);
-                    if (day < 10) {
-                        day = '0' + day;
-                    } else {
-                        day = day.toString();
+            if (lastMonthDay[value]) {
+                setCurrentDay(lastMonthDay[value]);
+            } else {
+                history.map((item) => {
+                    if (item.month === value) {
+                        let day = Math.max.apply(Math, item.days);
+                        if (day < 10) {
+                            day = '0' + day;
+                        } else {
+                            day = day.toString();
+                        }
+                        setCurrentDay(day);
                     }
-                    setCurrentDay(day);
-                }
-            })
+                })
+            }
         }
     }
-
 
     if (data && history) {
         return (
@@ -122,7 +126,6 @@ export default function Historie() {
                                 return (
                                     <>
                                         {item.days.map((day) => {
-                                            console.log(currentDay)
                                             if (currentDay === day) {
                                                 return <button className="btn btn-primary m-1">{day}</button>
                                             }
@@ -139,7 +142,8 @@ export default function Historie() {
                         {data.map((item) => {
                             if (currentDay === getTime(item.timestamp, 'day') &&
                                 currentMonth === getTime(item.timestamp, 'month')) {
-                                return <p key={item.id}>Otázka č. {item.FK_otazka}, Odpověď: {item.odpoved.toUpperCase()},
+                                return <p key={item.id}>Otázka č. {item.FK_otazka},
+                                    Odpověď: {item.odpoved.toUpperCase()},
                                     Čas: {getTime(item.timestamp, 'time')}</p>
                             }
                         })}
