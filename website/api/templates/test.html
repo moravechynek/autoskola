@@ -13,6 +13,12 @@
             {% for o in otazky %}
                 <li>
                     <h3>{{ o.otazka }}</h3>
+                    <p>
+                        <span style="background-color:lightblue;color:blue">{{ o.orig_topic }}</span>
+                        {% for topic in o.topic.all %}
+                            <span style="background-color:lightblue;color:blue">{{ topic.zkraceny_nazev }}</span>
+                        {% endfor %}
+                    </p>
                     {% if o.file %}
                         {% if o.file.url|slice:"-3:" == 'mp4'%}
                             <video width="320" height="240" controls>

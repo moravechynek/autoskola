@@ -10,13 +10,13 @@ from numpy import random
 
 
 class TestView(generics.ListAPIView):
-    pojmy = list(random.choice(list(Otazka.objects.filter(orig_topic='Pojmy')),size=10,replace=False))
-    bezpecnost = list(random.choice(list(Otazka.objects.filter(orig_topic='BezpecnostB')),size=4,replace=False))
-    znacky = list(Otazka.objects.filter(orig_topic='Znacky')[0:3])
-    situace = list(Otazka.objects.filter(orig_topic='Situace')[0:3])
-    predpisy_o_provozu_vozidel = list(Otazka.objects.filter(orig_topic='Predpisy')[0:2])
-    predpisy_provozu_na_komunikacich = list(Otazka.objects.filter(orig_topic='Provoz')[0:2])
-    zdravi = list(Otazka.objects.filter(orig_topic='Zdravi')[0:1])
+    pojmy = list(random.choice(list(Otazka.objects.filter(topic__id=1)),size=10,replace=False))
+    bezpecnost = list(random.choice(list(Otazka.objects.filter(topic__id=7)),size=4,replace=False))
+    znacky = list(Otazka.objects.filter(topic__id=4)[0:3])
+    situace = list(Otazka.objects.filter(topic__id=5)[0:3])
+    predpisy_o_provozu_vozidel = list(Otazka.objects.filter(topic__id=9)[0:2])
+    predpisy_provozu_na_komunikacich = list(Otazka.objects.filter(topic__id=10)[0:2])
+    zdravi = list(Otazka.objects.filter(topic__id=11)[0:1])
 
     queryset = pojmy + bezpecnost + znacky + situace + predpisy_o_provozu_vozidel + predpisy_provozu_na_komunikacich + zdravi
     
@@ -38,8 +38,8 @@ def odpovedCreate(request):
     return Response(serializer.data)
 
 def testOtazek(request):
-    otazky = Otazka.objects.filter(orig_topic='Pojmy')
-    #filter(orig_topic='Jizda')
+    otazky = Otazka.objects.all()
+    #filter(topic__id=8)
     return render(request, 'test.html', {'otazky': otazky})
 
 def statistiky(request):

@@ -4,8 +4,15 @@ from django.db import models
 def get_image_otazky(instance, filename):
     return os.path.join('otazky', filename)
 
+class Topic(models.Model):
+    nazev = models.CharField(max_length=41)
+    zkraceny_nazev = models.CharField(max_length=12)
+
+    def __str__ (self):
+        return (str(self.id) + ") " + self.nazev)
+
 class Otazka(models.Model):
-    otazka = models.TextField(max_length=270)
+    otazka = models.TextField(max_length=324)
     file = models.FileField(upload_to=get_image_otazky,
         blank=True)
     odpoved_a = models.TextField(max_length=400)
@@ -33,6 +40,7 @@ class Otazka(models.Model):
         choices=TOPICS,
         default='default'
     )
+    topic = models.ManyToManyField(Topic)
 
     def __str__ (self):
         return (str(self.id) + ") " + self.otazka)
