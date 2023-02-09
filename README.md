@@ -1,3 +1,9 @@
+## Instalace
+
+    pip install -r requirements.txt
+    cd website/frontend
+    npm install
+
 ## Spuštění backedu
 
     cd website
