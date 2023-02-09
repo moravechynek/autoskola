@@ -14,7 +14,6 @@
                 <li>
                     <h3>{{ o.otazka }}</h3>
                     <p>
-                        <span style="background-color:lightblue;color:blue">{{ o.orig_topic }}</span>
                         {% for topic in o.topic.all %}
                             <span style="background-color:lightblue;color:blue">{{ topic.zkraceny_nazev }}</span>
                         {% endfor %}

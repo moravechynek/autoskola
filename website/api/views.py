@@ -38,8 +38,14 @@ def odpovedCreate(request):
     return Response(serializer.data)
 
 def testOtazek(request):
-    otazky = Otazka.objects.all()
-    #filter(topic__id=8)
+    otazky = []
+    A = Otazka.objects.filter(topic__id=7)
+    otazky += A
+    # A-24,B-4,C-31
+    # AB-1,AC-0,BC-19
+    # ABC-54
+    # 59 + 20 + 54 = 133
+    #Otazka.objects.filter(Q(topic__id=6) & ~Q(topic__id=7) & ~Q(topic__id=8))
     return render(request, 'test.html', {'otazky': otazky})
 
 def statistiky(request):
